@@ -37,6 +37,9 @@ say it deliberately.>
 **Photos**
 - `photos/YYYY-MM-DD-<desc>.jpg` — <what it shows>
 
+**Spend**
+<Parts bought for this session, in S$, and that they are logged in `../../BUDGET.md`. "None" is valid.>
+
 **Blocked on**
 - <part / tool / safety kit / a thing we do not understand yet>
 

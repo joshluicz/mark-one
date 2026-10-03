@@ -17,8 +17,8 @@
 ## Open
 - ⬜ **Does his brother want Bench to Flight as the main track?** The RC car was *his* idea on the
   original slate. `PROJECTS.md` holds that a project someone chose gets finished — ask him, don't assume.
-- ⬜ **Budget?** No figure set. ⛔ Don't assume one. Stage 0 can start on ~S$80–120 (see
-  `curriculum/stage-0/README.md`).
+- ⬜ **Budget cap?** None set. ⛔ Don't assume one. Spend is tracked in `BUDGET.md` (S$, paid by
+  Joshua). Stage 0 can start on ~S$80–120 (see `curriculum/stage-0/README.md`).
 - ⬜ **Where is the bench?** Soldering (S0.6) needs ventilation and a surface allowed to get hot.
 - ⬜ **YouTube channel** — name, and whose account. Raw build logs; editing time is not curriculum time.
 - ⬜ **Brother's GitHub username** — to add him as a collaborator.

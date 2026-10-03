@@ -41,9 +41,10 @@ one, not a footnote.
 **Learning hardware by building it**, from a single transistor up to a working CPU and beyond — and
 keeping an honest public record of how that actually went, failures included.
 
-⛔ **This repo is public.** It is about the builds only: no personal plans, finances, school or work
+⛔ **This repo is public.** It is about the builds only: no personal plans, personal finances, school or work
 applications, or anything else about either of us that isn't the work on the bench. A project is
-chosen because we want to build it — never because of how it will look.
+chosen because we want to build it — never because of how it will look. Build spending is the
+exception: it is tracked in `BUDGET.md` (S$, real purchases only, no receipts or addresses).
 
 ## ⭐ Joshua does the work (ruled 2026-10-03)
 *"I want most of the thing to be done by me… I want it so that I do more of the research than you do."*
