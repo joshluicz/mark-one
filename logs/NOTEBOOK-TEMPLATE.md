@@ -1,6 +1,7 @@
-# Lab notebook — the predict-then-measure page
+# Lab notebook — template for one session
 
-Use this **during** a curriculum session (paper or phone notes, then copied in). The build log
+Copy the block below into the stage's chapter, `notebook/stage-N.md`, as a new dated section — use
+it **during** the session (paper or phone notes, then copied in or dictated). The build-log entry
 (`TEMPLATE.md`) is the end-of-session record; this is the working page.
 
 ⛔ A prediction written after the measurement is not a prediction. Date it, write it, *then* power on.

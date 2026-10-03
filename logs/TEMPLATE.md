@@ -1,14 +1,15 @@
 # Build log entry — template
 
-Copy into `projects/<name>/BUILD-LOG.md`, newest entry at the bottom. Write it **at the end of the
-session, about what happened**. ⛔ Never in advance. ⛔ Never reconstructed later — an undocumented
-session is simply not in the record (`EVIDENCE.md`).
+Copy into a new file, `projects/<name>/log/YYYY-MM-DD-<session>-<slug>.md`, then add its line to
+that project's `BUILD-LOG.md` index. Write it **at the end of the session, about what happened**.
+⛔ Never in advance. ⛔ Never reconstructed later — an undocumented session is simply not in the
+record (`EVIDENCE.md`).
 
 ---
 
 ## YYYY-MM-DD — <one-line title: what changed>
 
-**Present:** <who> · **Duration:** <real hours, rounded down> · **Project phase:** <e.g. drivetrain>
+**Present:** Joshua <+ brother, if helping> · **Duration:** <real hours, rounded down> · **Session:** <e.g. S0.3> · **Notebook:** `notebook/stage-N.md` § <date>
 
 **Goal for the session**
 <One sentence. What were we trying to make true by the end?>
@@ -17,10 +18,10 @@ session is simply not in the record (`EVIDENCE.md`).
 <LiPo / mains / soldering / props / hot end — and the mitigation. "None" is a valid answer, but
 say it deliberately.>
 
-**What we did**
-- <who> — <what>
-- <who> — <what>
-- Claude — <what, if anything: firmware, calculations, debugging. Say so.>
+**What I did**
+- <what>
+- Brother — <what he did, if he helped>
+- Claude — <what, if anything: a guide, a review, a calculation, a hint opened. Say so.>
 
 **What failed** 🔑 *the most valuable section — more detail than the successes*
 - **Symptom:** <what you observed, not what you concluded>
@@ -45,3 +46,5 @@ say it deliberately.>
 
 **Next session**
 <One line.>
+
+<If dictated: *Dictated by Joshua, transcribed by Claude, YYYY-MM-DD.*>

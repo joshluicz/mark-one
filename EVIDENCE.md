@@ -2,6 +2,36 @@
 
 Why the logging rules are strict, and what "good documentation" concretely means here.
 
+## Where each record lives
+
+| Record | Where | Written when |
+|---|---|---|
+| **Build-log entry** — one per session | `projects/<name>/log/YYYY-MM-DD-<session>-<slug>.md`, from `logs/TEMPLATE.md` | At the end of the session |
+| **Build-log index** — one line per entry | `projects/<name>/BUILD-LOG.md` | With each entry |
+| **Lab notebook** — predict, then measure | `notebook/stage-N.md`, one chapter per stage, sessions added as dated sections, from `logs/NOTEBOOK-TEMPLATE.md` | During the session |
+| **Study notes** — videos, courses, reading | `study/<source>.md`, one file per source, dated sections, format in `study/README.md` | Same day as the study |
+| **Sources** — the list of everything learned from | `curriculum/SOURCES.md` | When started, and rated when finished |
+| **Photos** | `projects/<name>/photos/` (builds) or `study/photos/` (notebook pages from study), named `YYYY-MM-DD-<desc>.jpg`, referenced from an entry, metadata stripped before commit | During |
+| **Spend** | `BUDGET.md` | When bought |
+| **Where things stand** | `STATE.md` | After each session |
+
+**Nothing is rewritten after the fact.** A mistake found in an old entry gets a dated
+`> Correction (YYYY-MM-DD): …` line appended under it; the original stays. A wrong prediction is
+the point of the notebook, not something to tidy.
+
+## Dictated entries
+
+Joshua may dictate an entry — a build log, a notebook section, study notes — and have Claude type
+it into the repo. **It is still his entry**, on these conditions:
+
+1. **His words only.** Claude may fix grammar and apply the format. ⛔ It adds no fact, example or
+   explanation he didn't say.
+2. **Errors stay in, flagged.** If something dictated looks wrong, Claude writes it as said and adds
+   a separate line under it: `> Claude: check this — <why>`. ⛔ Never a silent fix — the corrected
+   misunderstanding is worth more on the record than a secretly correct one.
+3. **The footer says so:** `*Dictated by Joshua, transcribed by Claude, YYYY-MM-DD.*`
+4. **Same day.** Dictation is contemporaneous only if it happens the day of the work.
+
 ## The problem this solves
 
 A hardware project is over in a weekend and leaves almost no trace. Six months later the honest
@@ -21,7 +51,7 @@ to an undocumented session is **"that session is not in the record"**, never a r
 |---|---|
 | **Date, duration, who was there** | The hour claim later rests on this, and it has to be defensible |
 | **The goal for the session** | Shows intent, not just activity |
-| **What was actually done** — by whom | Attribution, honestly, between the two of them and to Claude |
+| **What was actually done** — by whom | Attribution, honestly — Joshua, his brother when he helped, and Claude |
 | **What failed, and what it cost** | 🔑 **The most valuable line in the entry.** See below |
 | **The fix, and why it worked** | This is the part that demonstrates understanding |
 | **A measurement, if one exists** | A number beats an adjective every time |
@@ -47,7 +77,7 @@ Take them **during**, not after. Specifically:
 - The bench mid-session, untidied.
 - Every failure, at the moment it fails — the burnt component, the multimeter reading, the crash.
 - Whiteboard or paper sketches, before they are thrown away.
-- Both people working, occasionally.
+- Your hands on the work, occasionally — and your brother's when he's helping.
 
 ⛔ Do not stage a "build photo" after the fact. A staged photo of finished work is worth less than
 a blurry real one of broken work, and the difference is visible.

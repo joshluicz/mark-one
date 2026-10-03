@@ -13,7 +13,7 @@ on: **predict, then measure** — starting with ten resistors.
 
 ## Steps
 1. **Set up the logbook.** First page: name, start date, *"Predictions are written before
-   measurements. Dated."* Copy the table from `logs/LAB-NOTEBOOK.md`.
+   measurements. Dated."* Copy the table from `logs/NOTEBOOK-TEMPLATE.md` into `notebook/stage-0.md`.
 2. **Learn the colour code** (0.1.1). 4-band: digit, digit, multiplier, tolerance (gold ±5%,
    brown ±1%). 5-band: three digits, multiplier, tolerance. Read the bands from the side *away* from
    the gold/silver band. Spend 15 minutes with a printed chart, then put it away.
@@ -41,7 +41,7 @@ on: **predict, then measure** — starting with ten resistors.
 - Ten resistors are logged with a prediction above every measurement.
 - **Someone hands you any part from the store and you name its value and rating without looking
   at the label** (the syllabus pass criterion). Have your brother test you — ten random parts.
-- The safety page exists, signed by both of you.
+- The safety page exists, signed by you — and by your brother, since he'll be at the bench.
 
 ## Log & film
 - Build-log entry: first one. Duration, who did what, what you got wrong in the drill.

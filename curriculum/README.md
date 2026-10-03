@@ -1,5 +1,8 @@
 # Curriculum — Bench to Flight
 
+> **Who wrote this:** the syllabus and the session guides were written by **Claude (Anthropic)**
+> to my spec. The research, the builds, the notebook and the logs are mine.
+
 Two layers, and they do different jobs:
 
 | Layer | Where | What it is |
@@ -29,4 +32,5 @@ The point is that you did the thinking.
 ## One rule from the syllabus that runs through every guide
 **Predict, then measure.** Write the number you expect — dated — *before* you power anything on.
 When the measurement disagrees, the gap is the most valuable thing you'll learn that day. Find its
-cause before moving on. Template: `../logs/LAB-NOTEBOOK.md`.
+cause before moving on. Notebook: `../notebook/stage-N.md` · template:
+`../logs/NOTEBOOK-TEMPLATE.md`.

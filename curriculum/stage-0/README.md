@@ -13,11 +13,12 @@ one or two evenings** → about **5 weeks**, finishing early-to-mid November.
    stop; that's a blocker, not a footnote (`../../CLAUDE.md` red line 3).
 2. Answer the listed self-check questions **in writing, before building**.
 3. Do the steps in order. Every number gets **predicted first** in the lab notebook
-   (`../../logs/LAB-NOTEBOOK.md`).
+   (`../../notebook/stage-0.md`).
 4. **Done when** is the only exit. Not "watched the video", not "it lit up".
 5. Answer the same questions again. The ones you get wrong the second time go on camera.
-6. Write the build-log entry (`../../projects/bench-to-flight/BUILD-LOG.md`) — real duration,
-   rounded down, who did what, **what failed in more detail than what worked**.
+6. Write the build-log entry (a new file in `../../projects/bench-to-flight/log/`, indexed in
+   `BUILD-LOG.md`) — real duration, rounded down, who did what, **what failed in more detail than
+   what worked**.
 7. Photograph the bench before you tidy it.
 
 ## The sessions

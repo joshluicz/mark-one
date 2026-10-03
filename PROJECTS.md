@@ -7,8 +7,9 @@
 > ⏸️ The four projects below are **parked, not killed** — the reasoning stays. Two of them come
 > back naturally: the **RC plane's** hard lessons (crash risk, CAAS rules, LiPo) are Stage 3's, and
 > the **KiCad suggestion** at the bottom is now built into the Stage 0 capstone.
-> ⚠️ The RC car was the brother's pick, and this file's own argument is that a project someone chose
-> gets finished. Ask him (`STATE.md` → Open).
+> 🔀 **2026-10-03 — this is Joshua's personal repo** (`CLAUDE.md`). His brother helps on these
+> builds; his own projects go in his own repo later, with Joshua helping. The RC car below was his
+> pick — where it ends up is his call.
 
 
 Four candidates, from the 2026-08-30 conversation. **His brother proposed the RC car; Joshua
