@@ -23,4 +23,5 @@
 - ⬜ **Budget cap?** None set. ⛔ Don't assume one. Spend is tracked in `BUDGET.md` (S$, paid by
   Joshua). Stage 0 can start on ~S$80–120 (see `curriculum/stage-0/README.md`).
 - ⬜ **Where is the bench?** Soldering (S0.6) needs ventilation and a surface allowed to get hot.
+- ⬜ **Before S0.1:** the kit's resistors are 1% metal film. Do 1% resistors use the same number of colour bands as the guide assumes? (Parked 2026-10-04, Joshua's to research.)
 - ⬜ **YouTube channel** — name, and whose account. Raw build logs; editing time is not curriculum time.
