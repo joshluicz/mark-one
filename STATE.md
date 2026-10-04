@@ -6,7 +6,7 @@
 | Project | Phase | Next action | Blocked on |
 |---|---|---|---|
 | **Bench to Flight** (main track) | ⬜ Stage 0, S0.1 not started | Buy the S0.1 + S0.3 kit (multimeter, component assortment, breadboard, 9 V clip) → run **S0.1** | Parts — not yet ordered; first thing 2026-10-04, screen-recorded |
-| Study track | ⬜ **Nand2Tetris Part I** chosen 2026-10-03, not started · CS50P on a fixed daily slot until certificate | Start project 1; add to `curriculum/SOURCES.md` the day it starts | — |
+| Study track | 🟢 **Nand2Tetris Part I** started, at **unit 1.3** (2026-10-04) — truth table → expression, built XOR · CS50P on a fixed daily slot until certificate | Continue unit 1.x → project 1 | — |
 | RC car · irrigation · handheld · RC plane | ⏸️ parked | — | Superseded as the starting slate by Bench to Flight (see `PROJECTS.md`) |
 
 ## Ruled 2026-10-03
