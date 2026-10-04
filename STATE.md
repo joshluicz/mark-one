@@ -24,4 +24,5 @@
   Joshua). Stage 0 can start on ~S$80–120 (see `curriculum/stage-0/README.md`).
 - ⬜ **Where is the bench?** Soldering (S0.6) needs ventilation and a surface allowed to get hot.
 - ⬜ **Before S0.1:** the kit's resistors are 1% metal film. Do 1% resistors use the same number of colour bands as the guide assumes? (Parked 2026-10-04, Joshua's to research.)
+- 🚩 **Blocker for S0.6: the soldering station (Delixi 8586D) ships with a China plug** — seller refused a UK plug (2026-10-04). Before first use: an IEC inlet + local cord, or a rewired SG Safety Mark 13A plug done with his mother and meter-checked (earth to chassis, no L/N–E short), correct fuse from the rating label. ⛔ No travel adapter. Hot-air side stays off in Stage 0.
 - ⬜ **YouTube channel** — name, and whose account. Raw build logs; editing time is not curriculum time.
