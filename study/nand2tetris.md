@@ -14,8 +14,17 @@ Source row: `../curriculum/SOURCES.md` (first logged 2026-10-04).
   > ⛔ Screenshot not committed: XOR is one of the Nand2Tetris project chips, and the course asks
   > that solutions not be published.
 
+- (later) Went ahead of the videos and experimented myself; made a lot of mistakes and expanded
+  wrongly along the way.
+- The method: start from the truth table, knowing the end goal. For each row where the function
+  outputs 1, write an expression for that row, chain them together with ORs, then simplify. You can
+  end up with something made of only NOTs and ORs, which could be abstracted down to NANDs.
+- Explained it to my friend Daylen, including the layers of abstraction. It sits at the
+  intersection of computer science, computer engineering and electrical engineering.
+
 **What I didn't get**
-- [nothing said]
+- De Morgan's law: didn't understand what it is.
+- The distributive law: how it actually works ("so trippy").
 
 **Want to test on the bench**
 - [nothing said]
