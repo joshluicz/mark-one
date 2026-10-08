@@ -18,6 +18,9 @@ Source row: `../curriculum/SOURCES.md`. Second pass: I first did the course last
   > Claude: check this — CS50P numbers its lectures and problem sets from 0, so "week three" and
   > "problem set two" may be the same thing counted two ways. Which set was it, by the course's own
   > number?
+  > Resolved (2026-10-08, his answer): the course counts from **problem set 0**. Sets 0 and 1 are
+  > done; **set 2 (loops)** is under way, with its first problem solved. On the first pass last year
+  > he got to **week 7 (regular expressions)** before a break, so this pass is a redo.
 - I personally had a lot of trouble with the… [sentence cut off — not finished]
 
 **What I didn't get**

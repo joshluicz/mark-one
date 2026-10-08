@@ -72,8 +72,43 @@ purpose: everything on it costs a little maintenance forever.
 | **Programming** | Python: functions, loops, data structures, exceptions, files | CS50P, tooling scripts |
 | | C | Stage 2 |
 
-⬜ Questions for me: anything missing? Anything here I'll never need? Which calculus course was it,
-and do I finish it or just keep its core?
+⬜ Questions for me: anything missing? Anything here I'll never need? Do I finish the calculus
+course or just keep its core?
+
+**The calculus course** (2026-10-08): **MIT OCW Single Variable Calculus**. Plan was to go on to
+multivariable and linear algebra after it. What made it slow was also what made it worth it: A-level
+calculus gave the formulas, and this builds them from first principles (the derivative as a limit),
+woven through so tightly there was nothing safe to skip. ▶️ That is exactly why the gap protocol
+says *problems first*: the first-principles parts are the ones a cold problem set shows I've lost.
+
+## Where the maths and physics actually come in
+Logic gates and soldering use almost none of calculus, linear algebra or physics — Boolean algebra
+is its own thing. That's not a gap in the plan's thinking, it's which half of the field Stages 0–2
+sit in: **digital** is discrete. The calculus lives wherever things vary **continuously in time**:
+
+| Where | What it leans on |
+|---|---|
+| RC / RL / RLC circuits — charging, transients | differential equations |
+| AC circuits, filters, audio | complex numbers, frequency response |
+| Feedback and control — motors, a flying drone | differential equations, linear algebra |
+| Electromagnetics — motors, antennas, transformers | multivariable calculus, physics |
+| Power (the "electrical" side) — grids, machines | all of the above |
+
+So it isn't *electrical vs electronics*: **analog electronics is as mathematical as power**. The
+split that matters is **digital vs continuous**.
+
+⬜ **Idea, not ruled (2026-10-08):** after the CPU, a stretch that deliberately needs the maths and
+physics — analog / control. The Stage 3 default (a drone on my own firmware) is already the most
+maths-heavy thing on the slate: dynamics, sensors, feedback. Where to look when it's time: MIT OCW
+**6.002** (Circuits and Electronics), **18.03** (Differential Equations), **18.06** (Linear
+Algebra), **8.01 / 8.02** (Mechanics / Electricity and Magnetism).
+> Claude: check this — "physics 6.0001" as said: on MIT OCW, **6.0001** is *Introduction to Computer
+> Science and Programming in Python*, not physics. Physics is course 8 (8.01, 8.02). Which did you
+> mean?
+
+▶️ **A taste before then, at Stage 0:** S0.3–S0.5 put a capacitor on the bench. A large-RC circuit
+charges slowly enough to read with a multimeter and a stopwatch. Predict the curve from the maths
+*before* measuring — that's calculus checked against the bench, not a worksheet.
 
 ## Recall log
 One row per keep item **once I've learned it**. Results are what actually happened — a ❌ is the
@@ -84,7 +119,7 @@ what's due.
 |---|---|---|---|---|
 | XOR from its truth table | Blank page: truth table → sum of products → gate diagram | — | — | first check next session |
 | Python (CS50P sets done so far) | Redo one finished problem set from the spec, no peeking at my old code | 2026-10-08 (redid the sets) | ✅ (my account: "breezed through") | 2026-10-11 |
-| Integration by parts | Integrate one textbook example cold | — (self-rated: forgotten, 2026-10-08) | — | first check next session |
+| Integration by parts | Integrate one example cold (from an 18.01 problem set) | — (self-rated: forgotten, 2026-10-08) | — | first check next session |
 
 ⬜ **Tool:** this log is the starting point — no new app, and every Claude session surfaces what's
 due. If I want reviews on my phone in dead time, Anki does the same scheduling automatically; my
