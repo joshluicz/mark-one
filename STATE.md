@@ -6,7 +6,8 @@
 | Project | Phase | Next action | Blocked on |
 |---|---|---|---|
 | **Bench to Flight** (main track) | ⬜ Stage 0, S0.1 not started | Buy the S0.1 + S0.3 kit (multimeter, component assortment, breadboard, 9 V clip) → run **S0.1** | Parts — not yet ordered; first thing 2026-10-04, screen-recorded |
-| Study track | 🟢 **Nand2Tetris Part I** started, at **unit 1.3** (2026-10-04) — truth table → expression, built XOR · CS50P on a fixed daily slot until certificate | Continue unit 1.x → project 1 | — |
+| Study track | 🟢 **Nand2Tetris Part I** at **unit 1.3** (2026-10-04; none since) · **CS50P** second pass: redid problem sets 2026-10-08, shorter and more Pythonic than last year (`study/cs50p.md`) | Continue unit 1.x → project 1 · next CS50P set | — |
+| **Retention** (new 2026-10-08) | 🟡 System drafted — recall checks on a growing interval + a gap protocol (`curriculum/RETENTION.md`) | ⬜ **Rule on the keep list** (Claude's draft) · first recall checks: XOR, integration by parts | — |
 | RC car · irrigation · handheld · RC plane | ⏸️ parked | — | Superseded as the starting slate by Bench to Flight (see `PROJECTS.md`) |
 
 ## Ruled 2026-10-03

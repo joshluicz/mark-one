@@ -16,6 +16,8 @@ where Joshua helps him. He is not a collaborator on this one.
 3. Read `EVIDENCE.md` — **the documentation rules and where each kind of record lives. They are
    not optional and they are why this repo exists in the form it does.**
 4. For a live build, open the last entry in `projects/<name>/log/` — that is where he is.
+5. Check the **recall log** in `curriculum/RETENTION.md` and say what's due in your opening line.
+   ⛔ Quiz, don't tell: ask the recall task, wait for his attempt, check it after.
 
 ## The three red lines
 
