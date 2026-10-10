@@ -20,7 +20,7 @@ say it deliberately.>
 
 **What I did**
 - <what>
-- Brother — <what he did, if he helped>
+- Brother — <what he did, if he helped, and any idea he contributed (credited to him)>
 - Claude — <what, if anything: a guide, a review, a calculation, a hint opened. Say so.>
 
 **What failed** 🔑 *the most valuable section — more detail than the successes*

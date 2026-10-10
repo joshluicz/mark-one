@@ -11,6 +11,12 @@
 | RC car · irrigation · handheld · RC plane | ⏸️ parked | — | Superseded as the starting slate by Bench to Flight (see `PROJECTS.md`) |
 
 ## Ruled 2026-10-10
+- **Brother's role:** apprentice who is briefed on the plan and contributes ideas, credited in the
+  log (`CLAUDE.md`). Joshua still does the build.
+- **YouTube:** a **shared Google account** for the channel; Joshua is the main presenter, his
+  brother appears as a regular guest. ⬜ Channel name: Joshua to decide before the local session.
+- **Workbench site** (learning site for both of them, built by Claude, credited): planned, not built.
+  Runbook and spec in `docs/local-session/`. Built in a local session on Joshua's computer.
 - **Guides are textbook-style for a human reader**: terms built up before use, questions written
   out in full (`CLAUDE.md` → Writing guides). All of Stage 0 rewritten to that pattern the same day.
 
@@ -30,4 +36,4 @@
 - ✅ **Bench: bedroom desk alcove** (2026-10-04), silicone mat on the wood. **Ventilation plan for S0.6:** carbon-filter fume extractor at the joint + bedroom window open with a fan blowing out + room door ajar; desk fan and aircon off. Toilet route ruled out (window kept shut). Air the room after each session.
 - ⬜ **Before S0.1:** the kit's resistors are 1% metal film. Do 1% resistors use the same number of colour bands as the guide assumes? (Parked 2026-10-04, Joshua's to research.)
 - 🚩 **Blocker for S0.6: the soldering station (Delixi 8586D) ships with a China plug** — seller refused a UK plug (2026-10-04). Before first use: an IEC inlet + local cord, or a rewired SG Safety Mark 13A plug done with his mother and meter-checked (earth to chassis, no L/N–E short), correct fuse from the rating label. ⛔ No travel adapter. Hot-air side stays off in Stage 0.
-- ⬜ **YouTube channel** — name, and whose account. Raw build logs; editing time is not curriculum time.
+- ⬜ **YouTube channel**: account ruled (shared Google account, 2026-10-10); ⬜ **name** still open. Raw build logs; editing time is not curriculum time.

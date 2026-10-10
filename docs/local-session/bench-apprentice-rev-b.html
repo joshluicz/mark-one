@@ -1,0 +1,781 @@
+<title>Bench Apprentice</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>
+/* Layout: a printed circuit board. Soldermask-green ground, copper pads for quests, white silkscreen
+   labels. One column on phones, a two-track board on wide screens. Single deliberate dark look. */
+:root {
+  --mask: #0d3326;      /* soldermask, the page ground */
+  --mask-2: #134433;    /* raised panel */
+  --mask-3: #1b5842;    /* hover / inset */
+  --trace: #2c7558;     /* copper under mask: borders, dividers */
+  --copper: #d98b3a;    /* exposed copper: the accent */
+  --gold: #efc66b;      /* ENIG pad: XP, rewards */
+  --silk: #f1f5ee;      /* silkscreen: main text */
+  --silk-dim: #a9c6b7;  /* secondary text */
+  --ok: #8fe3ad;
+  --bad: #ff8a78;
+  --ink: #0b241b;       /* text on gold/copper */
+  --f-display: "Chakra Petch", "Arial Narrow", system-ui, sans-serif;
+  --f-body: "Atkinson Hyperlegible", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { background: var(--mask); }
+body {
+  background: var(--mask);
+  background-image:
+    radial-gradient(circle at 12px 12px, rgba(239,198,107,.07) 2.2px, transparent 3px),
+    linear-gradient(90deg, rgba(44,117,88,.18) 1px, transparent 1px);
+  background-size: 48px 48px, 96px 96px;
+  color: var(--silk);
+  font: 16px/1.55 var(--f-body);
+  padding-inline: 16px;
+  padding-block: 20px 80px;
+}
+.wrap { max-width: 1080px; margin: 0 auto; display: grid; gap: 20px; }
+a { color: var(--gold); text-underline-offset: 3px; }
+a:hover { color: var(--copper); }
+button { font: inherit; color: inherit; cursor: pointer; }
+:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+.silk { font-family: var(--f-mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--silk-dim); }
+
+/* Header */
+header.top { display: grid; gap: 14px; }
+.ref { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: baseline; }
+h1 { font-family: var(--f-display); font-weight: 700; font-size: clamp(34px, 8vw, 56px); line-height: .95; margin: 0; letter-spacing: .01em; text-wrap: balance; }
+h1 .u { color: var(--copper); }
+.lede { margin: 0; max-width: 60ch; color: var(--silk-dim); }
+.hud { display: grid; grid-template-columns: 1fr auto; gap: 12px 20px; align-items: center; background: var(--mask-2); border: 1px solid var(--trace); border-radius: 10px; padding: 14px 16px; }
+.rank { font-family: var(--f-display); font-size: 22px; font-weight: 700; }
+.rank small { display: block; font: 12px var(--f-mono); color: var(--silk-dim); letter-spacing: .08em; text-transform: uppercase; font-weight: 500; }
+.stats { display: flex; gap: 16px; font-family: var(--f-mono); font-variant-numeric: tabular-nums; }
+.stat b { display: block; font-size: 20px; color: var(--gold); }
+.stat span { font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--silk-dim); }
+.bar { grid-column: 1 / -1; height: 12px; border-radius: 6px; background: var(--mask); border: 1px solid var(--trace); overflow: hidden; }
+.bar i { display: block; height: 100%; width: 0; background: repeating-linear-gradient(90deg, var(--gold) 0 10px, var(--copper) 10px 12px); transition: width .5s ease; }
+.bar-note { grid-column: 1 / -1; margin: -4px 0 0; font-size: 13px; color: var(--silk-dim); }
+
+/* Next up */
+.next { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+.nextcard { background: var(--copper); color: var(--ink); border-radius: 10px; padding: 14px 16px; display: grid; gap: 6px; min-width: 0; }
+.nextcard.alt { background: var(--gold); }
+.nextcard .silk { color: rgba(11,36,27,.7); }
+.nextcard h3 { margin: 0; font-family: var(--f-display); font-size: 20px; line-height: 1.15; }
+.nextcard p { margin: 0; font-size: 14px; }
+.nextcard button { justify-self: start; background: var(--ink); color: var(--silk); border: 0; border-radius: 6px; padding: 7px 12px; font-weight: 700; font-size: 14px; }
+.tools { display: flex; flex-wrap: wrap; gap: 10px; }
+.btn { background: var(--mask-2); border: 1px solid var(--trace); border-radius: 8px; padding: 9px 14px; font-weight: 700; font-size: 14px; }
+.btn:hover { background: var(--mask-3); }
+.btn.hot { border-color: var(--gold); color: var(--gold); }
+
+/* Rules strip */
+.rules { display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); }
+.rule { border-left: 3px solid var(--copper); padding: 4px 0 4px 12px; font-size: 14px; color: var(--silk-dim); min-width: 0; }
+.rule b { color: var(--silk); display: block; font-size: 15px; }
+
+/* Tracks */
+.tracks { display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); align-items: start; }
+.track { display: grid; gap: 12px; min-width: 0; }
+.track > h2 { margin: 0; font-family: var(--f-display); font-size: 26px; display: flex; gap: 10px; align-items: baseline; }
+.track > h2 .silk { font-size: 11px; }
+.trackdesc { margin: -6px 0 0; color: var(--silk-dim); font-size: 14px; }
+.level { background: var(--mask-2); border: 1px solid var(--trace); border-radius: 10px; overflow: hidden; }
+.level.locked { opacity: .55; }
+.lvhead { display: grid; grid-template-columns: auto 1fr auto; gap: 12px; align-items: center; padding: 12px 14px; }
+.lvnum { font-family: var(--f-mono); font-weight: 700; font-size: 12px; width: 38px; height: 38px; border-radius: 50%; display: grid; place-items: center; border: 2px solid var(--gold); color: var(--gold); }
+.level.cleared .lvnum { background: var(--gold); color: var(--ink); }
+.lvhead h3 { margin: 0; font-family: var(--f-display); font-size: 19px; line-height: 1.15; }
+.lvhead p { margin: 2px 0 0; font-size: 13px; color: var(--silk-dim); }
+.lvcount { font-family: var(--f-mono); font-size: 12px; color: var(--silk-dim); font-variant-numeric: tabular-nums; }
+.lockmsg { padding: 0 14px 12px 64px; font-size: 13px; color: var(--silk-dim); }
+.quests { display: grid; border-top: 1px dashed var(--trace); }
+.quest { border-bottom: 1px dashed var(--trace); }
+.quest:last-child { border-bottom: 0; }
+.qrow { display: grid; grid-template-columns: auto 1fr; gap: 12px; padding: 10px 14px; align-items: start; }
+.pad { width: 26px; height: 26px; border-radius: 50%; border: 2px solid var(--copper); background: transparent; display: grid; place-items: center; padding: 0; margin-top: 1px; flex: none; }
+.pad svg { width: 14px; height: 14px; opacity: 0; }
+.quest.done .pad { background: var(--copper); }
+.quest.done .pad svg { opacity: 1; }
+.pad.game { border-style: dashed; cursor: default; }
+.qbody { min-width: 0; }
+.qtitle { background: none; border: 0; padding: 0; text-align: left; font-weight: 700; font-size: 16px; line-height: 1.3; display: block; width: 100%; }
+.quest.done .qtitle { color: var(--silk-dim); text-decoration: line-through; text-decoration-color: var(--copper); }
+.qmeta { display: flex; flex-wrap: wrap; gap: 6px 10px; margin-top: 3px; font-family: var(--f-mono); font-size: 11px; color: var(--silk-dim); }
+.qmeta .xp { color: var(--gold); }
+.tag { border: 1px solid var(--trace); border-radius: 4px; padding: 0 5px; }
+.tag.boss { border-color: var(--copper); color: var(--copper); }
+.tag.play { border-color: var(--gold); color: var(--gold); }
+.tag.due { border-color: var(--copper); background: var(--copper); color: var(--ink); }
+.nextcard.recall { background: var(--silk); }
+.nextcard.recall .silk { color: rgba(11,36,27,.65); }
+.bb { width: 100%; max-width: 420px; }
+.tt { border-collapse: collapse; font-family: var(--f-mono); font-size: 16px; }
+.tt th, .tt td { border: 1px solid var(--trace); padding: 4px 14px; text-align: center; }
+.tt th { color: var(--silk-dim); font-weight: 500; }
+.tt td.o { color: var(--gold); font-weight: 700; }
+.qdetail { margin-top: 8px; font-size: 15px; display: grid; gap: 8px; }
+.qdetail ol, .qdetail ul { margin: 0; padding-left: 20px; display: grid; gap: 4px; }
+.qdetail p { margin: 0; }
+.donewhen { font-size: 14px; border-left: 2px solid var(--gold); padding-left: 10px; color: var(--silk-dim); }
+.donewhen b { color: var(--gold); font-weight: 700; }
+.qdetail details { background: var(--mask); border: 1px solid var(--trace); border-radius: 6px; padding: 6px 10px; font-size: 14px; }
+.qdetail summary { cursor: pointer; color: var(--gold); font-weight: 700; }
+.qdetail .btn { justify-self: start; }
+code { font-family: var(--f-mono); font-size: .9em; background: var(--mask); border: 1px solid var(--trace); padding: 0 4px; border-radius: 4px; }
+
+/* Backup */
+.backup { background: var(--mask-2); border: 1px solid var(--trace); border-radius: 10px; padding: 14px 16px; display: grid; gap: 10px; }
+.backup h2 { margin: 0; font-family: var(--f-display); font-size: 20px; }
+.backup p { margin: 0; font-size: 14px; color: var(--silk-dim); }
+textarea { width: 100%; min-height: 70px; background: var(--mask); color: var(--silk); border: 1px solid var(--trace); border-radius: 6px; padding: 8px; font: 12px var(--f-mono); resize: vertical; }
+footer { font-size: 13px; color: var(--silk-dim); max-width: 70ch; }
+
+/* Modal + games */
+.modal { position: fixed; inset: 0; background: rgba(5,18,13,.82); display: grid; place-items: center; padding: 16px; z-index: 20; }
+.panel { background: var(--mask-2); border: 2px solid var(--copper); border-radius: 12px; width: min(520px, 100%); max-height: 92vh; overflow: auto; padding: 18px; display: grid; gap: 14px; }
+.panel h2 { margin: 0; font-family: var(--f-display); font-size: 24px; }
+.panel .sub { margin: -8px 0 0; font-size: 14px; color: var(--silk-dim); }
+.score { display: flex; justify-content: space-between; font-family: var(--f-mono); font-size: 13px; font-variant-numeric: tabular-nums; }
+.score .hearts { color: var(--bad); letter-spacing: 2px; }
+.prompt { background: var(--mask); border: 1px solid var(--trace); border-radius: 8px; padding: 16px; text-align: center; display: grid; gap: 10px; justify-items: center; }
+.prompt .big { font-family: var(--f-display); font-size: 26px; line-height: 1.2; }
+.prompt .q { font-size: 17px; }
+.opts { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.opt { background: var(--mask); border: 2px solid var(--trace); border-radius: 8px; padding: 12px 8px; font-family: var(--f-mono); font-weight: 700; font-size: 17px; }
+.opt:hover { border-color: var(--gold); }
+.opt.right { border-color: var(--ok); color: var(--ok); }
+.opt.wrong { border-color: var(--bad); color: var(--bad); }
+.feedback { min-height: 22px; text-align: center; font-size: 15px; }
+.feedback.good { color: var(--ok); }
+.feedback.bad { color: var(--bad); }
+.bits { display: grid; grid-template-columns: repeat(8, 1fr); gap: 6px; }
+.bit { display: grid; gap: 4px; justify-items: center; }
+.bit button { width: 100%; aspect-ratio: 1; max-width: 52px; border-radius: 8px; border: 2px solid var(--trace); background: var(--mask); font: 700 20px var(--f-mono); }
+.bit button.on { background: var(--gold); color: var(--ink); border-color: var(--gold); }
+.bit span { font: 10px var(--f-mono); color: var(--silk-dim); }
+.panelfoot { display: flex; gap: 10px; justify-content: space-between; flex-wrap: wrap; }
+.timerbig { font: 700 64px var(--f-mono); text-align: center; font-variant-numeric: tabular-nums; color: var(--gold); }
+.toast { position: fixed; left: 50%; bottom: calc(18px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); background: var(--gold); color: var(--ink); font-weight: 700; padding: 10px 16px; border-radius: 8px; z-index: 30; box-shadow: 0 6px 20px rgba(0,0,0,.4); max-width: calc(100% - 32px); text-align: center; }
+canvas#fx { position: fixed; inset: 0; pointer-events: none; z-index: 40; width: 100%; height: 100%; }
+@media (max-width: 420px) {
+  .hud { grid-template-columns: 1fr; }
+  .lockmsg { padding-left: 14px; }
+  .bit button { font-size: 16px; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div class="ref"><span class="silk">mark-one · REF U2 · Bench to Flight</span><span class="silk">Rev B · 10 Oct 2026</span></div>
+    <h1>Bench <span class="u">Apprentice</span></h1>
+    <p class="lede">Joshua is building a logic probe, then a whole 8-bit computer, then something that flies. You're on the bench with him. This board gets you up to speed: one short quest at a time, a few games, and XP for every bit you finish.</p>
+    <div class="hud" aria-live="polite">
+      <div class="rank" id="rank"><small>Rank</small>Visitor</div>
+      <div class="stats">
+        <div class="stat"><b id="xp">0</b><span>XP</span></div>
+        <div class="stat"><b id="streak">0</b><span>Day streak</span></div>
+        <div class="stat"><b id="sprints">0</b><span>Sprints</span></div>
+      </div>
+      <div class="bar"><i id="barfill"></i></div>
+      <p class="bar-note" id="barnote"></p>
+    </div>
+  </header>
+
+  <section class="next" id="next" aria-label="Next up"></section>
+
+  <div class="tools">
+    <button class="btn hot" id="sprintBtn">Start a 15-minute sprint</button>
+    <button class="btn" id="surpriseBtn">Pick a quest for me</button>
+  </div>
+
+  <section class="rules" aria-label="How this works">
+    <div class="rule"><b>One quest, then stop if you want.</b>Most quests take 5–30 minutes. Split the long ones into 15-minute sprints. Tick a quest when the "Done when" line is true, not before.</div>
+    <div class="rule"><b>Two tracks. Switch when bored.</b>Bench is hardware, Code is Python and GitHub. Each unlocks level by level.</div>
+    <div class="rule"><b>Boss quests need Joshua.</b>They happen at the bench once the parts arrive. They don't block anything.</div>
+    <div class="rule"><b>Try first, hint second.</b>Opening a hint is fine. Guessing then checking is how it sticks.</div>
+  </section>
+
+  <div class="tracks" id="tracks"></div>
+
+  <section class="backup" aria-label="Save and share">
+    <h2>Save and share your progress</h2>
+    <p>Your ticks are saved in this browser only. Copy the backup code now and then, and paste it back here if you switch phone or clear your browser. "Copy report" gives Joshua a quick summary to read.</p>
+    <div class="tools">
+      <button class="btn" id="copyReport">Copy report for Joshua</button>
+      <button class="btn" id="copyCode">Copy backup code</button>
+      <button class="btn" id="restoreBtn">Restore from code</button>
+    </div>
+    <textarea id="codeBox" aria-label="Backup code" placeholder="Paste a backup code here, then press Restore."></textarea>
+  </section>
+
+  <footer>Made by Claude (Anthropic) for Joshua's workshop, <a href="https://github.com/joshluicz/mark-one">mark-one</a>. The courses linked here belong to their makers. Do your own problem sets: CS50 and Nand2Tetris both ask that solutions are never shared or copied.</footer>
+</div>
+
+<div class="modal" id="modal" hidden><div class="panel" id="panel" role="dialog" aria-modal="true"></div></div>
+<canvas id="fx" hidden></canvas>
+<div class="toast" id="toast" hidden></div>
+
+<script>
+(function () {
+const REPO = "https://github.com/joshluicz/mark-one/blob/main/";
+const L = (href, text) => `<a href="${href}" target="_blank" rel="noopener">${text}</a>`;
+
+/* ---------- Quest data ---------- */
+const TRACKS = [
+{ id: "bench", name: "Bench", tag: "hardware", desc: "Safety, parts, electricity, logic gates, and how a chip is built from them.",
+  levels: [
+  { id: "b1", title: "Safety First", blurb: "Your ticket onto the bench.", quests: [
+    { id: "b1a", t: "Read the bench hazards", m: 10, xp: 40, html: `<ol><li>Read step 7 of ${L(REPO+"curriculum/stage-0/S0-01-logbook-parts-safety.md","session S0.1")}.</li><li>Read the "Before you start" box of ${L(REPO+"curriculum/stage-0/S0-06-soldering-joints.md","session S0.6")} (soldering).</li></ol>`, done: "you could name the three hazards without looking." },
+    { id: "b1b", t: "Safety Check (game)", m: 5, xp: 60, game: "safety", html: `<p>True or false, rapid fire. Get 8 right before you lose 3 lives.</p>`, done: "you win a round." },
+    { id: "b1c", t: "Write your safety card", m: 10, xp: 50, html: `<p>On paper, in your own words: the three hazards on this bench, and what stops each one from hurting someone. Stick it near the bench.</p>`, done: "the card exists and Joshua has read it." },
+    { id: "b1d", t: "Sign the safety page", m: 10, xp: 80, boss: true, html: `<p>At the first bench session (S0.1), Joshua writes the safety page. You check it against your card and you both sign it. You're at the bench too, so it's yours as much as his.</p>`, done: "your signature is on the page." }
+  ]},
+  { id: "b2", title: "Parts Detective", blurb: "Name any part on sight.", quests: [
+    { id: "b2a", t: "Crack the colour code", m: 10, xp: 30, html: `<p>Resistors don't have numbers printed on them. They have coloured stripes. Read step 2 of ${L(REPO+"curriculum/stage-0/S0-01-logbook-parts-safety.md","S0.1")}.</p><p>Black, brown, red, orange, yellow, green, blue, violet, grey, white = 0 to 9. Make up your own silly sentence to remember the order. Yours will stick better than anyone else's.</p>`, done: "you can say all ten colours in order from memory." },
+    { id: "b2b", t: "Resistor Rush (game)", m: 5, xp: 80, game: "resistor", html: `<p>A resistor appears. Read its bands, pick its value. 8 right before 3 lives are gone.</p>`, done: "you win a round." },
+    { id: "b2c", t: "Capacitor codes", m: 10, xp: 40, html: `<p>Read step 5 of ${L(REPO+"curriculum/stage-0/S0-01-logbook-parts-safety.md","S0.1")}. Small capacitors print a 3-digit code: <code>104</code> = 10 × 10⁴ pF = 100 nF.</p><p>Try these before opening the answers: <code>473</code>, <code>102</code>, <code>220</code>.</p><details><summary>Answers</summary><code>473</code> = 47 × 10³ pF = 47 nF · <code>102</code> = 10 × 10² pF = 1 nF · <code>220</code> = 22 × 10⁰ pF = 22 pF</details>`, done: "you got at least two of three before opening the answers." },
+    { id: "b2d", t: "Which leg is which?", m: 5, xp: 30, html: `<p>Read step 6 of ${L(REPO+"curriculum/stage-0/S0-01-logbook-parts-safety.md","S0.1")}: LEDs, diodes and electrolytic capacitors only work one way round.</p>`, done: "you can say, for each of the three, how to spot the + or − side and what happens if it goes in backwards." },
+    { id: "b2f", t: "Cap Code (game)", m: 5, xp: 60, bonus: true, game: "capcode", html: `<p>A capacitor's printed code appears. Pick its value. 8 right before 3 lives are gone. Figure 1.2 in ${L(REPO+"curriculum/stage-0/S0-01-logbook-parts-safety.md","S0.1")} shows what they look like.</p>`, done: "you win a round." },
+    { id: "b2e", t: "Quiz Joshua: 10 random parts", m: 15, xp: 100, boss: true, html: `<p>Once the parts arrive. Grab ten random parts from the store. Joshua names each value and rating without reading a label. You're the examiner: you check every answer. This is how S0.1 is passed.</p>`, done: "ten parts asked, score written in the logbook." }
+  ]},
+  { id: "b3", title: "Electricity Lab", blurb: "Voltage, current, resistance. In a browser for now.", quests: [
+    { id: "b3a", t: "Build a circuit in the browser", m: 15, xp: 50, html: `<ol><li>Open ${L("https://phet.colorado.edu/en/simulations/circuit-construction-kit-dc","PhET Circuit Construction Kit: DC")} (free, no account).</li><li>Battery, wires, one bulb, a switch. Make it light.</li><li>Add a second bulb. <b>Before</b> you connect it, write down: will both bulbs be brighter or dimmer? Try it in a line (series), then side by side (parallel).</li></ol>`, done: "you've checked both guesses, and you know which one you got wrong (if any)." },
+    { id: "b3b", t: "Ohm's Law Blitz (game)", m: 5, xp: 80, game: "ohm", html: `<p>V = I × R. You know this from physics. Now do it fast. 8 right before 3 lives are gone.</p>`, done: "you win a round." },
+    { id: "b3c", t: "Break it on purpose", m: 10, xp: 40, html: `<p>Back in PhET: connect a wire straight across the battery, with nothing else in the way. Watch what happens. Then find out why Joshua's bench power supply needs a <i>current limit</i> (it's in the buy list of ${L(REPO+"curriculum/stage-0/README.md","the Stage 0 guide")}).</p>`, done: "you can explain what a short circuit is in one sentence." },
+    { id: "b3e", t: "Learn to read circuit diagrams", m: 15, xp: 50, bonus: true, html: `<p>Read <b>Reading circuit diagrams</b> in ${L(REPO+"curriculum/stage-0/README.md#reading-circuit-diagrams","the Stage 0 overview")}: three rules and a page of symbols. Then open ${L(REPO+"curriculum/stage-0/S0-03-first-circuit.md","S0.3")} and look at Figures 3.1 to 3.3.</p>`, done: "you can point at each symbol in Figure 3.3 and say what it is." },
+    { id: "b3f", t: "Breadboard Detective (game)", m: 5, xp: 70, bonus: true, game: "breadboard", html: `<p>Two holes light up on a breadboard. Are they connected underneath? 10 right before 3 lives are gone. Figure 3.2 in ${L(REPO+"curriculum/stage-0/S0-03-first-circuit.md","S0.3")} shows the rules.</p>`, done: "you win a round." },
+    { id: "b3g", t: "Series or Parallel? (game)", m: 5, xp: 80, bonus: true, game: "combine", html: `<p>Two resistors, joined in series or in parallel. What's their total resistance? Series: add them. Parallel: (R1 × R2) ÷ (R1 + R2). 8 right before 3 lives are gone. ${L(REPO+"curriculum/stage-0/S0-04-dividers-loading.md","S0.4")} explains why.</p>`, done: "you win a round." },
+    { id: "b3d", t: "Judge Joshua's explanation", m: 10, xp: 60, boss: true, html: `<p>At session S0.4, Joshua has to explain a weird meter reading to you in two sentences using the word "parallel". You decide if it makes sense. If it doesn't, he tries again.</p>`, done: "you've accepted (or rejected) his explanation." }
+  ]},
+  { id: "b4", title: "Logic Gates", blurb: "How a switch becomes a decision.", quests: [
+    { id: "b4a", t: "Watch: how computers work", m: 20, xp: 50, html: `<p>${L("https://www.youtube.com/results?search_query=sebastian+lague+exploring+how+computers+work","Sebastian Lague, Exploring How Computers Work")} on YouTube. Watch it in two halves if you need to.</p>`, done: "you can explain to someone at home what a NAND gate does." },
+    { id: "b4b", t: "Gate Guesser (game)", m: 5, xp: 80, game: "gate", html: `<p>A gate and its inputs appear. Is the output 0 or 1? 10 right before 3 lives are gone.</p>`, done: "you win a round." },
+    { id: "b4c", t: "NAND can build everything", m: 20, xp: 60, html: `<p>Open ${L("https://logic.ly/demo","the logic.ly demo")}. Using <b>only NAND gates</b>, build a NOT gate, then an AND gate, then an OR gate. Test every input combination.</p><details><summary>Hint: NOT</summary>What does NAND do if both of its inputs are the same wire?</details><details><summary>Hint: AND</summary>NAND is AND followed by a NOT. How do you cancel a NOT?</details><details><summary>Hint: OR</summary>Flip each input first, then NAND them together.</details>`, done: "all three work for every input, and you know how many hints you opened." },
+    { id: "b4e", t: "Name That Gate (game)", m: 5, xp: 80, bonus: true, game: "namegate", html: `<p>You get a truth table. Which gate is it? 8 right before 3 lives are gone. The gate symbols are in Figure 9.1 of ${L(REPO+"curriculum/stage-0/S0-09-discrete-nand.md","S0.9")}.</p>`, done: "you win a round." },
+    { id: "b4d", t: "Pick Joshua's gate", m: 10, xp: 60, boss: true, html: `<p>At session S0.9, you choose NOT, AND or OR. Joshua builds it from transistors with the guide closed, and you check it against the truth table.</p>`, done: "you've tested every input combination on his circuit." }
+  ]},
+  { id: "b5", title: "Inside the Chip", blurb: "Nand2Tetris: the course Joshua is doing too.", quests: [
+    { id: "b5a", t: "Nand2Tetris units 1.1–1.2", m: 30, xp: 60, html: `<p>Start at ${L("https://www.nand2tetris.org/","nand2tetris.org")} (Part I is free to watch). Boolean logic and Boolean functions.</p>`, done: "you can turn a three-row truth table into a description in words." },
+    { id: "b5b", t: "Unit 1.3: truth table → expression", m: 30, xp: 60, html: `<p>The trick Joshua used to build XOR. Write the truth table first, then the expression.</p>`, done: "you can write the expression for XOR from its truth table with no notes." },
+    { id: "b5c", t: "Run Joshua's XOR check", m: 15, xp: 70, html: `<p>Joshua has to prove he still remembers XOR. Give him a blank page and these instructions: truth table, then the expression, then the gate drawing. No notes, no hints. You mark it.</p>`, done: "you've marked it right or wrong, and told him which step went wrong if one did." },
+    { id: "b5d", t: "Project 1: Not, And, Or", m: 45, xp: 100, html: `<p>Build them in the course's own tools. They're the same gates as level 4, now written as code. ⛔ Don't post or share your solutions; the course asks that.</p>`, done: "the course's tests pass for all three." }
+  ]}
+]},
+{ id: "code", name: "Code", tag: "python + github", desc: "Python goes further than school does here, and GitHub is where your work will live.",
+  levels: [
+  { id: "c1", title: "Boot Up", blurb: "Your GitHub account, put to work.", quests: [
+    { id: "c1a", t: "Log in to GitHub", m: 2, xp: 20, html: `<p>You already made the account. Log in on the device you'll use the most.</p>`, done: "you're logged in." },
+    { id: "c1b", t: "Star the workshop", m: 3, xp: 30, html: `<p>Open ${L("https://github.com/joshluicz/mark-one","joshluicz/mark-one")} and press the ☆ Star button at the top.</p>`, done: "the star is filled in." },
+    { id: "c1c", t: "Read the plan", m: 10, xp: 50, html: `<p>Read the ${L(REPO+"README.md","README")} and the table at the top of ${L(REPO+"curriculum/README.md","the curriculum")}.</p>`, done: "you can say what each of the four stages ends with." }
+  ]},
+  { id: "c2", title: "Think in Binary", blurb: "The only two numbers a computer knows.", quests: [
+    { id: "c2a", t: "Count to 31 on one hand", m: 5, xp: 30, html: `<p>Each finger is a bit: thumb = 1, index = 2, middle = 4, ring = 8, pinky = 16. Finger up means 1. Count from 0 to 31 without skipping a number.</p>`, done: "you reached 31." },
+    { id: "c2b", t: "Bit Flipper (game)", m: 5, xp: 70, game: "binary", html: `<p>Flip the bits to make the target number. 6 targets, and they get bigger.</p>`, done: "you clear all 6." },
+    { id: "c2c", t: "CS50x Lecture 0", m: 60, xp: 80, html: `<p>Harvard's ${L("https://cs50.harvard.edu/x/","CS50x")}, lecture 0: bits, binary, how text, emoji and colours become numbers, and what an algorithm is. Watch it in sprint-sized chunks.</p>`, done: "you can explain how the letter A is stored as bits, and how a colour on a screen is stored." }
+  ]},
+  { id: "c3", title: "Python: First Program", blurb: "CS50P, Harvard's free Python course.", quests: [
+    { id: "c3a", t: "Sign in to CS50", m: 10, xp: 30, html: `<p>Go to ${L("https://cs50.harvard.edu/python/","CS50P")}. Your new GitHub account is how you log in to CS50's online coding space, so you don't need to install anything.</p>`, done: "you can see the course's code editor in your browser." },
+    { id: "c3b", t: "Lecture 0, in chunks", m: 30, xp: 60, html: `<p>Functions and variables. The lecture is long, so don't watch it all at once. Watch about 25 minutes, pause, type out what you just saw and run it. Then carry on. A sprint fits one chunk.</p>`, done: "you've finished the lecture and typed in at least three of its examples yourself." },
+    { id: "c3c", t: "Problem Set 0", m: 45, xp: 120, html: `<p>Do the problems yourself. ⛔ No copying solutions: not from the internet, not from Joshua. CS50 is strict about this, and it's also the only way it sticks.</p>`, done: "the course's checker passes every problem." }
+  ]},
+  { id: "c4", title: "Python: Decisions and Loops", blurb: "if, else, while, for.", quests: [
+    { id: "c4a", t: "Lecture 1 + Problem Set 1", m: 60, xp: 120, html: `<p>Conditionals. Same plan: chunks, type along, then the problems.</p>`, done: "Problem Set 1 passes the checker." },
+    { id: "c4b", t: "Lecture 2 + Problem Set 2", m: 60, xp: 140, html: `<p>Loops. Joshua is on Problem Set 2 right now. Race him to the end of it, but keep your code to yourself until you're both done.</p>`, done: "Problem Set 2 passes the checker." }
+  ]},
+  { id: "c5", title: "Your Own Notebook", blurb: "A repo that's yours.", quests: [
+    { id: "c5a", t: "Make your notes repo", m: 10, xp: 50, html: `<p>On GitHub: New repository, name it whatever you like (<code>bench-notes</code> works), and tick "Add a README". In the README, write one line about something you learned this week, in your own words.</p>`, done: "the repo exists with your first line in it." },
+    { id: "c5b", t: "Three lines, three days", m: 5, xp: 80, html: `<p>After three different sessions, add one line each time: what you learned, or what confused you. Confusing things are worth writing down too.</p>`, done: "three dated lines from three different days." }
+  ]}
+]},
+{ id: "side", name: "Side Quests", tag: "always open", desc: "Short extras. Do them whenever.",
+  levels: [
+  { id: "s1", title: "Side Quests", blurb: "No order, no locks.", open: true, quests: [
+    { id: "s1a", t: "What's inside an RC car?", m: 15, xp: 40, html: `<p>The RC car was your idea, and it's still on the list. Look up two parts every RC car needs: an <b>ESC</b> and an <b>H-bridge</b>. What does each one do?</p>`, done: "you can explain both in one sentence each." },
+    { id: "s1b", t: "Teach it back", m: 10, xp: 50, html: `<p>Explain one thing from this board to someone at home in under a minute. If you got stuck halfway, that's the part to look at again.</p>`, done: "you did it without notes." },
+    { id: "s1c", t: "Meet the 8-bit computer", m: 15, xp: 40, html: `<p>Look at ${L("https://eater.net/8bit","Ben Eater's 8-bit computer")} and watch the first video. Stage 1 of the plan builds a computer like this from chips on breadboards.</p>`, done: "you know roughly how many breadboards it uses." },
+    { id: "s1d", t: "Play in Falstad", m: 15, xp: 40, html: `<p>Open ${L("https://www.falstad.com/circuit/","the Falstad circuit simulator")} and look through its Circuits menu. Find one example that surprises you.</p>`, done: "you can show Joshua the one that surprised you and say why." },
+    { id: "s1e", t: "Make a Scratch game (CS50x Problem Set 0)", m: 60, xp: 100, html: `<p>The first CS50x problem set is a project in ${L("https://scratch.mit.edu/","Scratch")}: drag-and-drop code blocks, no typing. Make something you'd actually want to play, then show Joshua. Check the problem set page for what it has to include.</p>`, done: "it runs, it meets the problem set's checklist, and someone else has played it." }
+  ]}
+]}
+];
+
+const ALL = [];
+TRACKS.forEach(tr => tr.levels.forEach(lv => lv.quests.forEach(q => { q.level = lv; q.track = tr; ALL.push(q); })));
+const BYID = Object.fromEntries(ALL.map(q => [q.id, q]));
+
+const RANKS = [
+  [0, "Visitor"], [120, "Bench Guest"], [350, "Parts Spotter"], [700, "Circuit Tinkerer"],
+  [1100, "Gate Builder"], [1600, "Chip Wizard"], [2200, "Bench Legend"]
+];
+
+/* ---------- State ---------- */
+const KEY = "bench-apprentice-v1";
+let S = { done: {}, sprints: 0, bonus: 0, days: [], open: {}, recall: {} };
+try { const raw = localStorage.getItem(KEY); if (raw) S = Object.assign(S, JSON.parse(raw)); } catch (e) {}
+S.recall = S.recall || {};
+// Games won before recall existed start their schedule today.
+ALL.forEach(q => { if (q.game && S.done[q.id] && !S.recall[q.id]) S.recall[q.id] = { step: 0, due: addDays(1) }; });
+function save() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} }
+function today() { const d = new Date(); return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0"); }
+function markDay() { const t = today(); if (!S.days.includes(t)) { S.days.push(t); S.days = S.days.slice(-120); } }
+function streak() {
+  const set = new Set(S.days); let n = 0; const d = new Date();
+  if (!set.has(today())) d.setDate(d.getDate() - 1);
+  for (;;) { const k = d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0"); if (set.has(k)) { n++; d.setDate(d.getDate() - 1); } else break; }
+  return n;
+}
+/* Spaced recall: a won game comes back on a growing interval (same rule as Joshua's RETENTION.md).
+   Clean win (no lives lost) doubles the gap; a shaky win keeps it; a loss sends it back to tomorrow. */
+const GAPS = [1, 3, 7, 14, 30, 90];
+function addDays(n) { const d = new Date(); d.setDate(d.getDate() + n); return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0"); }
+function daysUntil(k) { const [y, m, d] = k.split("-").map(Number); const t = new Date(y, m - 1, d), n = new Date(); n.setHours(0, 0, 0, 0); return Math.round((t - n) / 86400000); }
+function isDue(qid) { const r = S.recall[qid]; return !!r && daysUntil(r.due) <= 0; }
+function dueList() { return ALL.filter(q => q.game && isDue(q.id)); }
+function recordResult(qid, outcome) {
+  // returns bonus XP earned for this play
+  const r = S.recall[qid], due = r && daysUntil(r.due) <= 0;
+  if (!r) { if (outcome !== "fail") S.recall[qid] = { step: 0, due: addDays(GAPS[0]) }; return 0; }
+  if (outcome === "fail") { S.recall[qid] = { step: 0, due: addDays(GAPS[0]) }; return 0; }
+  if (!due) return 5;
+  const step = outcome === "clean" ? Math.min(r.step + 1, GAPS.length - 1) : r.step;
+  S.recall[qid] = { step, due: addDays(GAPS[step]) };
+  return outcome === "clean" ? 25 : 15;
+}
+function recallTag(q) {
+  if (!q.game || !S.recall[q.id]) return "";
+  const n = daysUntil(S.recall[q.id].due);
+  return n <= 0 ? `<span class="tag due">Recall due now</span>` : `<span class="tag">Recall in ${n} day${n === 1 ? "" : "s"}</span>`;
+}
+function xp() { return ALL.reduce((a, q) => a + (S.done[q.id] ? q.xp : 0), 0) + S.sprints * 15 + (S.bonus || 0); }
+function rankOf(x) { let r = RANKS[0], nx = null; for (let i = 0; i < RANKS.length; i++) { if (x >= RANKS[i][0]) { r = RANKS[i]; nx = RANKS[i + 1] || null; } } return { r, nx }; }
+function levelCore(lv) { return lv.quests.filter(q => !q.boss && !q.bonus); }
+function levelCleared(lv) { return levelCore(lv).every(q => S.done[q.id]); }
+function unlocked(tr, i) { const lv = tr.levels[i]; return lv.open || i === 0 || levelCleared(tr.levels[i - 1]); }
+
+/* ---------- Render ---------- */
+const $ = id => document.getElementById(id);
+const CHECK = `<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3.2 3L13 4.5" fill="none" stroke="#0b241b" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+
+function render() {
+  const x = xp(), { r, nx } = rankOf(x);
+  $("rank").innerHTML = `<small>Rank</small>${r[1]}`;
+  $("xp").textContent = x; $("streak").textContent = streak(); $("sprints").textContent = S.sprints;
+  const pct = nx ? Math.min(100, ((x - r[0]) / (nx[0] - r[0])) * 100) : 100;
+  $("barfill").style.width = pct + "%";
+  $("barnote").textContent = nx ? `${nx[0] - x} XP to ${nx[1]}` : "Top rank. Ask Joshua what's next.";
+
+  // Next up
+  const picks = ["bench", "code"].map(tid => {
+    const tr = TRACKS.find(t => t.id === tid);
+    for (let i = 0; i < tr.levels.length; i++) {
+      if (!unlocked(tr, i)) break;
+      const q = tr.levels[i].quests.find(q => !q.boss && !q.bonus && !S.done[q.id]);
+      if (q) return q;
+    }
+    return null;
+  });
+  const due = dueList();
+  $("next").innerHTML = (due.length ? `
+    <div class="nextcard recall">
+      <span class="silk">Keep it · ${due.length} game${due.length === 1 ? "" : "s"} due · +25 XP each for a clean win</span>
+      <h3>Recall: ${due.map(q => q.t.replace(" (game)", "")).join(", ")}</h3>
+      <p>Play it cold. If you can still do it, it's sticking.</p>
+      <button data-goto="${due[0].id}">Play ${due[0].t.replace(" (game)", "")}</button>
+    </div>` : "") + picks.map((q, i) => q ? `
+    <div class="nextcard ${i ? "alt" : ""}">
+      <span class="silk">Next on ${q.track.name} · ${q.m} min · +${q.xp} XP</span>
+      <h3>${q.t}</h3>
+      <p>${q.level.title}</p>
+      <button data-goto="${q.id}">${q.game ? "Play it" : "Open it"}</button>
+    </div>` : `<div class="nextcard ${i ? "alt" : ""}"><span class="silk">${i ? "Code" : "Bench"}</span><h3>Track cleared.</h3><p>The boss quests are waiting for bench day.</p></div>`).join("");
+
+  // Tracks
+  $("tracks").innerHTML = TRACKS.map(tr => `
+    <section class="track" ${tr.id === "side" ? 'style="grid-column:1/-1"' : ""}>
+      <h2>${tr.name} <span class="silk">${tr.tag}</span></h2>
+      <p class="trackdesc">${tr.desc}</p>
+      ${tr.levels.map((lv, i) => {
+        const open = unlocked(tr, i), cleared = levelCleared(lv);
+        const n = lv.quests.filter(q => S.done[q.id]).length;
+        return `<div class="level ${open ? "" : "locked"} ${cleared ? "cleared" : ""}">
+          <div class="lvhead">
+            <div class="lvnum">${lv.open ? "★" : (tr.id === "bench" ? "B" : "C") + (i + 1)}</div>
+            <div><h3>${lv.title}</h3><p>${lv.blurb}</p></div>
+            <div class="lvcount">${n}/${lv.quests.length}</div>
+          </div>
+          ${open ? `<div class="quests">${lv.quests.map(questHTML).join("")}</div>`
+                 : `<div class="lockmsg">Locked. Clear ${tr.levels[i - 1].title} to open it (boss quests don't count).</div>`}
+        </div>`;
+      }).join("")}
+    </section>`).join("");
+}
+
+function questHTML(q) {
+  const done = !!S.done[q.id], isOpen = !!S.open[q.id];
+  const tags = [q.boss ? `<span class="tag boss">Boss · with Joshua · after parts arrive</span>` : "", q.game ? `<span class="tag play">Game</span>` : "", q.bonus ? `<span class="tag">Bonus · doesn't lock anything</span>` : "", recallTag(q)].join("");
+  return `<div class="quest ${done ? "done" : ""}" id="q-${q.id}">
+    <div class="qrow">
+      ${q.game ? `<span class="pad game" title="Win the game to tick this">${CHECK}</span>`
+               : `<button class="pad" data-tick="${q.id}" aria-pressed="${done}" aria-label="${done ? "Untick" : "Tick"} ${q.t}">${CHECK}</button>`}
+      <div class="qbody">
+        <button class="qtitle" data-toggle="${q.id}" aria-expanded="${isOpen}">${q.t}</button>
+        <div class="qmeta"><span>${q.m} min</span><span class="xp">+${q.xp} XP</span>${tags}</div>
+        ${isOpen ? `<div class="qdetail">${q.html}<p class="donewhen"><b>Done when</b> ${q.done}</p>${q.game ? `<button class="btn hot" data-play="${q.game}" data-q="${q.id}">${done ? "Play again" : "Play"}</button>` : ""}</div>` : ""}
+      </div>
+    </div>
+  </div>`;
+}
+
+/* ---------- Actions ---------- */
+function complete(id, silent) {
+  if (S.done[id]) return;
+  const q = BYID[id], before = rankOf(xp()).r[1];
+  const wasCleared = levelCleared(q.level);
+  S.done[id] = true; markDay(); save();
+  const after = rankOf(xp()).r[1];
+  let msg = `+${q.xp} XP · ${q.t}`;
+  if (!wasCleared && levelCleared(q.level)) msg = `Level cleared: ${q.level.title}! +${q.xp} XP`;
+  if (after !== before) msg = `New rank: ${after}!`;
+  render(); if (!silent) toast(msg);
+  if (after !== before || (!wasCleared && levelCleared(q.level))) confetti();
+}
+document.addEventListener("click", e => {
+  const t = e.target.closest("[data-tick],[data-toggle],[data-play],[data-goto]");
+  if (!t) return;
+  if (t.dataset.tick) { const id = t.dataset.tick; if (S.done[id]) { delete S.done[id]; save(); render(); toast("Unticked"); } else complete(id); }
+  else if (t.dataset.toggle) { const id = t.dataset.toggle; S.open[id] = !S.open[id]; save(); render(); }
+  else if (t.dataset.play) openGame(t.dataset.play, t.dataset.q);
+  else if (t.dataset.goto) goTo(t.dataset.goto);
+});
+function goTo(id) {
+  const q = BYID[id]; S.open[id] = true; save(); render();
+  if (q.game) { openGame(q.game, id); return; }
+  const el = $("q-" + id); if (el) el.scrollIntoView({ behavior: "smooth", block: "center" });
+}
+$("surpriseBtn").onclick = () => {
+  const pool = TRACKS.flatMap(tr => tr.levels.flatMap((lv, i) => unlocked(tr, i) ? lv.quests.filter(q => !q.boss && !S.done[q.id]) : []));
+  if (!pool.length) return toast("Nothing left to pick. Bench day!");
+  const q = pool[Math.floor(Math.random() * pool.length)]; toast(`Try this: ${q.t}`); goTo(q.id);
+};
+
+let toastT;
+function toast(m) { const el = $("toast"); el.textContent = m; el.hidden = false; clearTimeout(toastT); toastT = setTimeout(() => el.hidden = true, 2600); }
+
+/* ---------- Modal ---------- */
+function openModal(html) { $("panel").innerHTML = html; $("modal").hidden = false; const b = $("panel").querySelector("button"); if (b) b.focus(); }
+function closeModal() { $("modal").hidden = true; $("panel").innerHTML = ""; stopTimer(); }
+$("modal").addEventListener("click", e => { if (e.target.id === "modal" || e.target.closest("[data-close]")) closeModal(); });
+document.addEventListener("keydown", e => { if (e.key === "Escape" && !$("modal").hidden) closeModal(); });
+
+/* ---------- Games ---------- */
+const rnd = n => Math.floor(Math.random() * n);
+const pick = a => a[rnd(a.length)];
+const shuffle = a => { for (let i = a.length - 1; i > 0; i--) { const j = rnd(i + 1); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+
+const BAND = ["#141414", "#7a4a21", "#d23a2f", "#f07f1a", "#f4c51f", "#2e8b3e", "#1f63c9", "#7d3fb0", "#8c8c8c", "#f4f4f4"];
+const BANDN = ["black", "brown", "red", "orange", "yellow", "green", "blue", "violet", "grey", "white"];
+function ohms(v) {
+  const f = (n, u) => (Math.round(n * 100) / 100).toString() + " " + u;
+  if (v >= 1e6) return f(v / 1e6, "MΩ"); if (v >= 1e3) return f(v / 1e3, "kΩ"); return f(v, "Ω");
+}
+function resistorSVG(d1, d2, m) {
+  const cols = [BAND[d1], BAND[d2], BAND[m], "#c9a227"];
+  const xs = [78, 102, 126, 172];
+  return `<svg viewBox="0 0 260 70" width="100%" style="max-width:300px" role="img" aria-label="Resistor with bands ${BANDN[d1]}, ${BANDN[d2]}, ${BANDN[m]}, gold">
+    <line x1="0" y1="35" x2="260" y2="35" stroke="#b9b9b9" stroke-width="4"/>
+    <rect x="56" y="12" width="148" height="46" rx="20" fill="#e3c99a" stroke="#a88c5c" stroke-width="2"/>
+    ${xs.map((x, i) => `<rect x="${x}" y="12" width="12" height="46" fill="${cols[i]}" ${cols[i] === "#f4f4f4" || cols[i] === "#141414" ? 'stroke="#555" stroke-width=".8"' : ""}/>`).join("")}
+  </svg>`;
+}
+
+const SAFETY = [
+  ["The soldering iron's tip runs at around 300–350 °C.", true],
+  ["It's fine to rest the iron on the desk for a second.", false, "Always in its stand. Never on the bench."],
+  ["Eye protection goes on before soldering.", true],
+  ["Flux smoke is harmless, so the window can stay shut.", false, "It's an irritant. Window open, fan pulling it away."],
+  ["With leaded solder: no food or drink at the bench, and wash your hands after.", true],
+  ["A LiPo battery can be left charging overnight.", false, "Never charge lithium batteries unattended."],
+  ["A travel adapter is fine for the new soldering station's plug.", false, "No travel adapter. The plug gets properly replaced first."],
+  ["Switch the iron off when you leave the room.", true],
+  ["When clipping resistor legs, point the leg down so it doesn't fly at someone.", true],
+  ["If a lithium battery puffs up, it's still OK to charge it.", false, "A swollen cell is damaged. Stop using it."]
+];
+const GATES = {
+  AND: (a, b) => a & b, OR: (a, b) => a | b, NAND: (a, b) => 1 - (a & b),
+  NOR: (a, b) => 1 - (a | b), XOR: (a, b) => a ^ b, NOT: a => 1 - a
+};
+
+const RULES = { AND: "AND: 1 only if both are 1.", OR: "OR: 1 if either is 1.", NAND: "NAND: 0 only if both are 1.", NOR: "NOR: 1 only if both are 0.", XOR: "XOR: 1 if they're different.", NOT: "NOT flips it." };
+function breadboardSVG(a, b) {
+  const COLS = 10, x0 = 34, dx = 36, railY = 22, top = [56, 76, 96, 116, 136], bot = [172, 192, 212, 232, 252];
+  const pos = h => h.t === "rail" ? [x0 + h.c * dx, railY] : [x0 + h.c * dx, (h.h ? bot : top)[h.r]];
+  let g = `<svg class="bb" viewBox="0 0 400 272" role="img" aria-label="Breadboard with two holes marked">`;
+  g += `<rect x="4" y="4" width="392" height="264" rx="10" fill="#f3f4f1"/>`;
+  g += `<line x1="20" y1="${railY}" x2="380" y2="${railY}" stroke="#dc2626" stroke-width="1" opacity=".5"/><text x="12" y="${railY + 4}" font-size="12" fill="#dc2626" font-weight="700">+</text>`;
+  g += `<rect x="20" y="150" width="360" height="8" fill="#d6d8d2"/>`;
+  "abcde".split("").forEach((l, i) => { g += `<text x="12" y="${top[i] + 4}" font-size="10" fill="#6b7280">${l}</text>`; });
+  "fghij".split("").forEach((l, i) => { g += `<text x="12" y="${bot[i] + 4}" font-size="10" fill="#6b7280">${l}</text>`; });
+  for (let c = 0; c < COLS; c++) {
+    g += `<rect x="${x0 + c * dx - 5}" y="${railY - 5}" width="10" height="10" rx="2" fill="#3a3f45"/>`;
+    [...top, ...bot].forEach(y => { g += `<rect x="${x0 + c * dx - 5}" y="${y - 5}" width="10" height="10" rx="2" fill="#3a3f45"/>`; });
+  }
+  [a, b].forEach((h, i) => { const [x, y] = pos(h); g += `<circle cx="${x}" cy="${y}" r="11" fill="none" stroke="#d98b3a" stroke-width="3"/><text x="${x + 13}" y="${y - 8}" font-size="13" font-weight="700" fill="#b45309">${i + 1}</text>`; });
+  return g + `</svg>`;
+}
+function comboSVG(r1, r2, par) {
+  const res = (x, y, w) => `<path d="M${x} ${y} l${w * .1} 0 l${w * .05} -8 l${w * .1} 16 l${w * .1} -16 l${w * .1} 16 l${w * .1} -16 l${w * .1} 16 l${w * .05} -8 l${w * .3} 0" fill="none" stroke="#f1f5ee" stroke-width="2"/>`;
+  if (!par) return `<svg viewBox="0 0 300 50" width="300" style="max-width:100%">${`<line x1="0" y1="25" x2="20" y2="25" stroke="#f1f5ee" stroke-width="2"/>`}${res(20, 25, 130)}${res(150, 25, 130)}<line x1="280" y1="25" x2="300" y2="25" stroke="#f1f5ee" stroke-width="2"/></svg>`;
+  return `<svg viewBox="0 0 300 90" width="300" style="max-width:100%"><line x1="0" y1="45" x2="70" y2="45" stroke="#f1f5ee" stroke-width="2"/><line x1="230" y1="45" x2="300" y2="45" stroke="#f1f5ee" stroke-width="2"/><line x1="70" y1="20" x2="70" y2="70" stroke="#f1f5ee" stroke-width="2"/><line x1="230" y1="20" x2="230" y2="70" stroke="#f1f5ee" stroke-width="2"/>${res(70, 20, 160)}${res(70, 70, 160)}<circle cx="70" cy="45" r="3.5" fill="#f1f5ee"/><circle cx="230" cy="45" r="3.5" fill="#f1f5ee"/></svg>`;
+}
+
+const GAMES = {
+  safety: { title: "Safety Check", sub: "True or false? 8 right wins.", target: 8,
+    deck: [], make() { if (!this.deck.length) this.deck = shuffle(SAFETY.slice()); const [s, ans, why] = this.deck.pop(); return { prompt: `<div class="q">${s}</div>`, opts: [["True", ans === true], ["False", ans === false]], why: why || (ans ? "That one's true." : "") }; } },
+  resistor: { title: "Resistor Rush", sub: "Read the bands left to right. Gold is on the right. 8 right wins.", target: 8,
+    make() {
+      const d1 = 1 + rnd(9), d2 = rnd(10), m = rnd(6), v = (d1 * 10 + d2) * 10 ** m;
+      const wrong = new Set([ohms(v)]);
+      const cands = [(d2 * 10 + d1) * 10 ** m, v * 10, m > 0 ? v / 10 : v * 100, (d1 * 10 + ((d2 + 1) % 10)) * 10 ** m, v * 1000];
+      const opts = [[ohms(v), true]];
+      for (const c of cands) { const s = ohms(c); if (c >= 1 && !wrong.has(s) && opts.length < 4) { wrong.add(s); opts.push([s, false]); } }
+      return { prompt: resistorSVG(d1, d2, m), opts: shuffle(opts), why: `${BANDN[d1]} ${BANDN[d2]} ${BANDN[m]} = ${d1}${d2} × 10${m ? sup(m) : "⁰"} = ${ohms(v)}` };
+    } },
+  ohm: { title: "Ohm's Law Blitz", sub: "V = I × R. Careful with mA (1 mA = 0.001 A). 8 right wins.", target: 8,
+    make() {
+      const I = pick([2, 4, 5, 10, 20, 25, 30]), R = pick([100, 150, 200, 220, 330, 470, 1000]);
+      const V = Math.round(I * R) / 1000, mode = rnd(3);
+      const fv = n => (Math.round(n * 1000) / 1000) + " V", fi = n => (Math.round(n * 100) / 100) + " mA", fr = n => ohms(n);
+      let q, right, f, why;
+      if (mode === 0) { q = `I = ${I} mA, R = ${ohms(R)}.<br>What is V?`; right = V; f = fv; why = `${I / 1000} A × ${R} Ω = ${fv(V)}`; }
+      else if (mode === 1) { q = `V = ${fv(V)}, R = ${ohms(R)}.<br>What is I?`; right = I; f = fi; why = `${fv(V)} ÷ ${R} Ω = ${I / 1000} A = ${I} mA`; }
+      else { q = `V = ${fv(V)}, I = ${I} mA.<br>What is R?`; right = R; f = fr; why = `${fv(V)} ÷ ${I / 1000} A = ${R} Ω`; }
+      const opts = [[f(right), true]]; const seen = new Set([f(right)]);
+      for (const c of [right * 10, right / 10, right * 1000, right * 2]) { const s = f(c); if (!seen.has(s) && opts.length < 4) { seen.add(s); opts.push([s, false]); } }
+      return { prompt: `<div class="big">${q}</div>`, opts: shuffle(opts), why };
+    } },
+  gate: { title: "Gate Guesser", sub: "What does the gate output? 10 right wins.", target: 10,
+    make() {
+      const g = pick(Object.keys(GATES)), a = rnd(2), b = rnd(2);
+      const out = g === "NOT" ? GATES.NOT(a) : GATES[g](a, b);
+      const ins = g === "NOT" ? `A = ${a}` : `A = ${a} &nbsp; B = ${b}`;
+      return { prompt: `<div class="silk">${ins}</div><div class="big">${g}</div>`, opts: [["0", out === 0], ["1", out === 1]], why: RULES[g] };
+    } }
+  ,
+  capcode: { title: "Cap Code", sub: "Two digits, then how many zeros. The answer is in picofarads (pF). 8 right wins.", target: 8,
+    make() {
+      const d1 = 1 + rnd(9), d2 = rnd(10), m = rnd(6), pf = (d1 * 10 + d2) * 10 ** m;
+      const fmt = v => v >= 1e6 ? +(v / 1e6).toPrecision(3) + " µF" : v >= 1e3 ? +(v / 1e3).toPrecision(3) + " nF" : v + " pF";
+      const opts = [[fmt(pf), true]], seen = new Set([fmt(pf)]);
+      for (const c of [pf * 10, m ? pf / 10 : pf * 100, (d2 * 10 + d1) * 10 ** m, pf * 1000]) {
+        const t = fmt(c); if (c >= 1 && Number.isFinite(c) && !seen.has(t) && opts.length < 4) { seen.add(t); opts.push([t, false]); }
+      }
+      return { prompt: `<span class="silk">printed on the capacitor</span><div class="big">${d1}${d2}${m}</div>`, opts: shuffle(opts),
+        why: `${d1}${d2} then ${m} zero${m === 1 ? "" : "s"} = ${pf.toLocaleString("en")} pF = ${fmt(pf)}` };
+    } },
+  breadboard: { title: "Breadboard Detective", sub: "Are the two numbered holes connected underneath? 10 right wins.", target: 10,
+    make() {
+      const COLS = 10, half = () => rnd(2), row = () => rnd(5), col = () => rnd(COLS);
+      let a, b, yes, why;
+      const kind = rnd(6);
+      if (kind === 0) { // same column, same half
+        const h = half(), c = col(), r1 = row(); let r2 = row(); while (r2 === r1) r2 = row();
+        a = { t: "main", h, r: r1, c }; b = { t: "main", h, r: r2, c }; yes = true; why = "Same column, same half: those 5 holes are one strip of metal.";
+      } else if (kind === 1) { // rail to rail
+        const c1 = col(); let c2 = col(); while (c2 === c1) c2 = col();
+        a = { t: "rail", c: c1 }; b = { t: "rail", c: c2 }; yes = true; why = "The rail runs the whole length of this board, so any two rail holes are joined.";
+      } else if (kind === 2 || kind === 3) { // same row letter, different column: the classic mistake
+        const h = half(), r = row(), c1 = col(); let c2 = c1 + (rnd(2) ? 1 : -1); if (c2 < 0 || c2 >= COLS) c2 = c1 === 0 ? 1 : c1 - 1;
+        a = { t: "main", h, r, c: c1 }; b = { t: "main", h, r, c: c2 }; yes = false; why = "Same row letter, different column: NOT joined. The strips run up and down, not across.";
+      } else if (kind === 4) { // across the gap
+        const c = col();
+        a = { t: "main", h: 0, r: row(), c }; b = { t: "main", h: 1, r: row(), c }; yes = false; why = "Same column, but across the middle gap: NOT joined. The gap splits every column in two.";
+      } else { // rail to main
+        a = { t: "rail", c: col() }; b = { t: "main", h: half(), r: row(), c: col() }; yes = false; why = "The rail is only joined to itself. You'd need a wire to connect it to a column.";
+      }
+      return { prompt: breadboardSVG(a, b), opts: [["Connected", yes], ["Not connected", !yes]], why };
+    } },
+  combine: { title: "Series or Parallel?", sub: "Total resistance of the pair. Series: add. Parallel: (R1 × R2) ÷ (R1 + R2). 8 right wins.", target: 8,
+    make() {
+      const pairs = [[10, 10], [20, 30], [30, 60], [12, 6], [100, 100], [40, 60], [150, 300], [1000, 1000], [10000, 10000], [6, 3], [470, 470], [2200, 2200], [200, 300]];
+      const [r1, r2] = pick(pairs), par = rnd(2) === 1;
+      const ser = r1 + r2, pl = (r1 * r2) / (r1 + r2), ans = par ? pl : ser;
+      const opts = [[ohms(ans), true]], seen = new Set([ohms(ans)]);
+      for (const c of [par ? ser : pl, Math.min(r1, r2), ans * 2, Math.abs(r1 - r2) || ans * 3]) {
+        const t = ohms(c); if (c > 0 && !seen.has(t) && opts.length < 4) { seen.add(t); opts.push([t, false]); }
+      }
+      return { prompt: comboSVG(r1, r2, par) + `<div class="q">${ohms(r1)} and ${ohms(r2)} in <b>${par ? "PARALLEL" : "SERIES"}</b></div>`, opts: shuffle(opts),
+        why: par ? `Parallel: (${r1} × ${r2}) ÷ (${r1} + ${r2}) = ${ohms(pl)}. Always smaller than the smaller one.` : `Series: just add. ${r1} + ${r2} = ${ohms(ser)}.` };
+    } },
+  namegate: { title: "Name That Gate", sub: "Read the output column. Which gate is it? 8 right wins.", target: 8,
+    make() {
+      const names = ["AND", "OR", "NAND", "NOR", "XOR"], g = pick(names);
+      const rows = [[0, 0], [0, 1], [1, 0], [1, 1]].map(([a, b]) => `<tr><td>${a}</td><td>${b}</td><td class="o">${GATES[g](a, b)}</td></tr>`).join("");
+      const opts = shuffle([g, ...shuffle(names.filter(n => n !== g)).slice(0, 3)]).map(n => [n, n === g]);
+      return { prompt: `<table class="tt"><tr><th>A</th><th>B</th><th>out</th></tr>${rows}</table>`, opts, why: RULES[g] };
+    } }
+};
+function recallNote(qid, first) {
+  const r = S.recall[qid]; if (!r) return "";
+  const n = daysUntil(r.due);
+  return `<p class="q">${first ? "Learned! " : ""}Next recall: ${n <= 0 ? "today" : n === 1 ? "tomorrow" : "in " + n + " days"}.</p>`;
+}
+function sup(n) { return String(n).split("").map(c => "⁰¹²³⁴⁵⁶⁷⁸⁹"[c]).join(""); }
+
+let G = null;
+function openGame(kind, qid) {
+  if (kind === "binary") return openBinary(qid);
+  const def = GAMES[kind]; G = { def, qid, score: 0, lives: 3, locked: false };
+  openModal(`<h2>${def.title}</h2><p class="sub">${def.sub}</p>
+    <div class="score"><span id="gscore"></span><span class="hearts" id="glives"></span></div>
+    <div class="prompt" id="gprompt"></div><div class="opts" id="gopts"></div>
+    <div class="feedback" id="gfb" aria-live="polite"></div>
+    <div class="panelfoot"><button class="btn" data-close>Close</button></div>`);
+  nextRound();
+}
+function hud() { $("gscore").textContent = `${G.score} / ${G.def.target}`; $("glives").textContent = "♥".repeat(G.lives) + "♡".repeat(3 - G.lives); }
+function nextRound() {
+  hud(); G.locked = false; const r = G.def.make(); G.round = r;
+  $("gprompt").innerHTML = r.prompt; $("gfb").textContent = ""; $("gfb").className = "feedback";
+  $("gopts").style.gridTemplateColumns = r.opts.length === 2 ? "1fr 1fr" : "1fr 1fr";
+  $("gopts").innerHTML = r.opts.map((o, i) => `<button class="opt" data-i="${i}">${o[0]}</button>`).join("");
+  $("gopts").querySelectorAll(".opt").forEach(b => b.onclick = () => answer(+b.dataset.i, b));
+}
+function answer(i, btn) {
+  if (G.locked) return; G.locked = true;
+  const ok = G.round.opts[i][1];
+  $("gopts").querySelectorAll(".opt").forEach((b, j) => { if (G.round.opts[j][1]) b.classList.add("right"); });
+  if (ok) { G.score++; $("gfb").textContent = pick(["Nice.", "Correct.", "Yes!", "Clean.", "Got it."]); $("gfb").className = "feedback good"; }
+  else { G.lives--; btn.classList.add("wrong"); $("gfb").textContent = G.round.why || "Not that one."; $("gfb").className = "feedback bad"; }
+  hud();
+  if (G.score >= G.def.target) return setTimeout(winGame, 700);
+  if (G.lives <= 0) return setTimeout(loseGame, 1400);
+  setTimeout(nextRound, ok ? 650 : 1700);
+}
+function winGame() {
+  const first = !S.done[G.qid];
+  const earned = recordResult(G.qid, G.lives === 3 ? "clean" : "shaky");
+  $("panel").innerHTML = `<h2>You win!</h2><p class="sub">${G.def.title}: ${G.score} right with ${G.lives} ${G.lives === 1 ? "life" : "lives"} left.</p>
+    <div class="prompt"><div class="big">${first ? "+" + BYID[G.qid].xp + " XP" : "+" + earned + " XP"}</div>${recallNote(G.qid, first)}</div>
+    <div class="panelfoot"><button class="btn" data-close>Back to the board</button><button class="btn hot" id="again">Play again</button></div>`;
+  if (first) complete(G.qid, true); else { S.bonus = (S.bonus || 0) + earned; markDay(); save(); render(); }
+  confetti();
+  const k = Object.keys(GAMES).find(k => GAMES[k] === G.def), q = G.qid;
+  $("again").onclick = () => openGame(k, q);
+}
+function loseGame() {
+  recordResult(G.qid, "fail"); save(); render();
+  const k = Object.keys(GAMES).find(k => GAMES[k] === G.def), q = G.qid;
+  $("panel").innerHTML = `<h2>Out of lives</h2><p class="sub">You got ${G.score} of ${G.def.target}. Every wrong answer showed you the rule, so the next round should go better.${S.done[G.qid] ? " This one comes back tomorrow for another go." : ""}</p>
+    <div class="panelfoot"><button class="btn" data-close>Back to the board</button><button class="btn hot" id="again">Try again</button></div>`;
+  $("again").onclick = () => openGame(k, q);
+}
+
+function openBinary(qid) {
+  const B = { qid, round: 0, bits: [0, 0, 0, 0, 0, 0, 0, 0] };
+  const lims = [7, 15, 31, 63, 127, 255];
+  const W = [128, 64, 32, 16, 8, 4, 2, 1];
+  const newTarget = () => { B.target = 1 + rnd(lims[B.round]); B.bits = B.bits.map(() => 0); };
+  newTarget();
+  openModal(`<h2>Bit Flipper</h2><p class="sub">Tap bits to make the target. Each bit is worth the number under it.</p>
+    <div class="score"><span id="bround"></span><span id="bval"></span></div>
+    <div class="prompt"><span class="silk">Target</span><div class="big" id="btarget"></div></div>
+    <div class="bits" id="bbits"></div><div class="feedback" id="bfb" aria-live="polite"></div>
+    <div class="panelfoot"><button class="btn" data-close>Close</button></div>`);
+  const draw = () => {
+    const val = B.bits.reduce((a, b, i) => a + b * W[i], 0);
+    $("bround").textContent = `Target ${B.round + 1} / 6`; $("bval").textContent = `You have: ${val}`;
+    $("btarget").textContent = B.target;
+    $("bbits").innerHTML = W.map((w, i) => `<div class="bit"><button class="${B.bits[i] ? "on" : ""}" data-b="${i}" aria-label="Bit worth ${w}, ${B.bits[i] ? "on" : "off"}">${B.bits[i]}</button><span>${w}</span></div>`).join("");
+    $("bbits").querySelectorAll("button").forEach(b => b.onclick = () => { B.bits[+b.dataset.b] ^= 1; draw(); check(); });
+    return val;
+  };
+  const check = () => {
+    const val = B.bits.reduce((a, b, i) => a + b * W[i], 0);
+    if (val !== B.target) return;
+    $("bfb").textContent = `${B.bits.join("")} = ${B.target}. Nice.`; $("bfb").className = "feedback good";
+    B.round++;
+    if (B.round >= 6) {
+      return setTimeout(() => {
+        const first = !S.done[qid];
+        const earned = recordResult(qid, "clean");
+        $("panel").innerHTML = `<h2>All six cleared!</h2><p class="sub">You can read binary now. Fun fact: 8 bits (one byte) is exactly what Joshua's 8-bit computer works with.</p>
+          <div class="prompt"><div class="big">${first ? "+" + BYID[qid].xp + " XP" : "+" + earned + " XP"}</div>${recallNote(qid, first)}</div>
+          <div class="panelfoot"><button class="btn" data-close>Back to the board</button><button class="btn hot" id="again">Play again</button></div>`;
+        if (first) complete(qid, true); else { S.bonus = (S.bonus || 0) + earned; markDay(); save(); render(); }
+        confetti(); $("again").onclick = () => openBinary(qid);
+      }, 700);
+    }
+    setTimeout(() => { newTarget(); $("bfb").textContent = ""; draw(); }, 900);
+  };
+  draw();
+}
+
+/* ---------- Focus sprint ---------- */
+let timer = null;
+function stopTimer() { if (timer) { clearInterval(timer); timer = null; } }
+$("sprintBtn").onclick = () => {
+  const end = Date.now() + 15 * 60 * 1000;
+  openModal(`<h2>Focus sprint</h2><p class="sub">15 minutes on one quest. Phone face down, other tabs closed. Finish the sprint for +15 XP.</p>
+    <div class="timerbig" id="tclock">15:00</div>
+    <div class="panelfoot"><button class="btn" data-close>Give up</button><button class="btn" id="tskip" title="Only if you really did 15 minutes">I already did 15 min</button></div>`);
+  const finish = () => {
+    stopTimer(); S.sprints++; markDay(); save(); render(); confetti();
+    $("panel").innerHTML = `<h2>Sprint done!</h2><p class="sub">+15 XP. Take a 5-minute break: stand up, get water. Then go again, or stop here. Both are fine.</p><div class="panelfoot"><button class="btn hot" data-close>Back to the board</button></div>`;
+  };
+  $("tskip").onclick = finish;
+  timer = setInterval(() => {
+    const left = Math.max(0, end - Date.now()), s = Math.ceil(left / 1000);
+    const el = $("tclock"); if (el) el.textContent = String(Math.floor(s / 60)).padStart(2, "0") + ":" + String(s % 60).padStart(2, "0");
+    if (left <= 0) finish();
+  }, 500);
+};
+
+/* ---------- Backup + report ---------- */
+function copy(text, label) {
+  const box = $("codeBox");
+  const fallback = () => { box.value = text; box.focus(); box.select(); toast("Selected. Copy it from the box."); };
+  try { navigator.clipboard.writeText(text).then(() => toast(label), fallback); } catch (e) { fallback(); }
+}
+$("copyCode").onclick = () => copy("BA1:" + btoa(unescape(encodeURIComponent(JSON.stringify({ done: S.done, sprints: S.sprints, bonus: S.bonus, days: S.days, recall: S.recall })))), "Backup code copied");
+$("restoreBtn").onclick = () => {
+  const v = $("codeBox").value.trim();
+  try {
+    if (!v.startsWith("BA1:")) throw 0;
+    const d = JSON.parse(decodeURIComponent(escape(atob(v.slice(4)))));
+    S = Object.assign({ done: {}, sprints: 0, bonus: 0, days: [], open: {}, recall: {} }, d, { open: {} }); save(); render(); toast("Progress restored"); $("codeBox").value = "";
+  } catch (e) { toast("That code didn't work. Check you copied all of it, starting with BA1:"); }
+};
+$("copyReport").onclick = () => {
+  const x = xp(), lines = [`Bench Apprentice report, ${today()}`, `Rank: ${rankOf(x).r[1]} · ${x} XP · ${streak()}-day streak · ${S.sprints} sprints`, ""];
+  TRACKS.forEach(tr => tr.levels.forEach(lv => {
+    const d = lv.quests.filter(q => S.done[q.id]);
+    lines.push(`${lv.title}: ${d.length}/${lv.quests.length}${d.length ? " (" + d.map(q => q.t).join(", ") + ")" : ""}`);
+  }));
+  const rec = ALL.filter(q => S.recall[q.id]).map(q => `${q.t.replace(" (game)", "")}: ${isDue(q.id) ? "due now" : "next " + S.recall[q.id].due}`);
+  if (rec.length) lines.push("", "Recall schedule:", ...rec);
+  copy(lines.join("\n"), "Report copied. Paste it to Joshua.");
+};
+
+/* ---------- Confetti ---------- */
+function confetti() {
+  if (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const c = $("fx"); c.hidden = false; const ctx = c.getContext("2d");
+  const W = c.width = innerWidth, H = c.height = innerHeight;
+  const cols = ["#efc66b", "#d98b3a", "#8fe3ad", "#f1f5ee"];
+  const P = Array.from({ length: 90 }, () => ({ x: W / 2 + (Math.random() - .5) * 80, y: H * .45, vx: (Math.random() - .5) * 11, vy: -Math.random() * 12 - 4, s: 4 + Math.random() * 5, c: pick(cols), r: Math.random() * 6 }));
+  let f = 0;
+  (function step() {
+    ctx.clearRect(0, 0, W, H);
+    P.forEach(p => { p.vy += .35; p.x += p.vx; p.y += p.vy; p.r += .2; ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.r); ctx.fillStyle = p.c; ctx.fillRect(-p.s / 2, -p.s / 4, p.s, p.s / 2); ctx.restore(); });
+    if (++f < 90) requestAnimationFrame(step); else { ctx.clearRect(0, 0, W, H); c.hidden = true; }
+  })();
+}
+
+render();
+})();
+</script>

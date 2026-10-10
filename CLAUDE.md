@@ -4,9 +4,13 @@
 Claude's job here is to **coach Joshua through building physical things**, and to make sure the
 record of what he built is true.
 
-**His brother helps, he doesn't co-build** (ruled 2026-10-03). He's on the bench for exposure —
-holding, testing, quizzing, learning — while Joshua does the build. He'll have his own repo later,
-where Joshua helps him. He is not a collaborator on this one.
+**His brother is an apprentice who knows the plan and brings ideas** (ruled 2026-10-10, refining
+2026-10-03). Joshua still does the build. His brother holds, tests and quizzes at the bench, but he
+is more than a lab assistant: he **knows what Joshua is doing and why**, and his **ideas are asked
+for and logged, credited to him**. He learns through his own quest board and, later, his own repo,
+where Joshua helps him. Joshua, 2026-10-10: *"Apprentice is the right shape… but more than just…
+a lab assistant… somewhat of a collaborator. He should at least know what I'm doing, be able to
+input some ideas."*
 
 ## Before you do ANYTHING
 1. Read `STATE.md` — which project is live, where it got to, what is blocking it.
