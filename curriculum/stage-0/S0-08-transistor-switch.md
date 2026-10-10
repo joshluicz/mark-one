@@ -52,6 +52,10 @@ Ohm's law, series, measuring current.)
 ---
 
 ## The idea: why a switch should be all the way on or all the way off
+
+![Figure 8.1: the three states of a transistor.](img/transistor-regions.svg)
+*Figure 8.1: the three states of a transistor.*
+
 Power turned into heat in the transistor = **V<sub>CE</sub> × I<sub>C</sub>**.
 - When it's **off**, I<sub>C</sub> is zero, so no heat.
 - When it's **fully on** (saturated), V<sub>CE</sub> is tiny, so very little heat.
@@ -103,6 +107,10 @@ the 2N3904.
 the base resistor → transistor's **base**. Touch the input wire to 5 V and the LED should light;
 touch it to ground and it goes off.
 
+![Figure 8.2: the transistor switch. Check which physical leg is B, C and E in your datasheet; the symbol doesn't tell you.](img/npn-switch.svg)
+*Figure 8.2: the transistor switch. Check which physical leg is B, C and E in your datasheet; the symbol doesn't tell you.*
+
+
 ### 4. Measure
 *(Syllabus 0.4.2, 0.4.5.)* With the switch on: V<sub>BE</sub>, and V<sub>CE</sub> (it should be
 only about 0.1–0.2 V, meaning saturated). With it off: V<sub>CE</sub> again. Measure I<sub>B</sub>
@@ -124,6 +132,10 @@ current.
 *(Syllabus 0.4.7.)* Disconnect the gate wire completely, so the gate is floating. Touch it with a
 finger, then wave your hand near it. The LED flickers on and off, or gets stuck. **Film this.**
 
+
+![Figure 8.3: the floating-gate fault, and the fix.](img/mosfet-floating.svg)
+*Figure 8.3: the floating-gate fault, and the fix.*
+
 Then fix it: add a 100 kΩ resistor from the gate to ground. Write down why that cures it.
 
 ---
@@ -132,6 +144,11 @@ Then fix it: add a 100 kΩ resistor from the gate to ground. Write down why that
 - You can calculate a base resistor with a stated overdrive factor, and defend your choice of factor.
 - You measured V<sub>CE</sub> both saturated and starved, and can explain the difference in power.
 - You've shown the floating-gate fault, and then fixed it.
+
+## Further reading (free)
+- [SparkFun: Transistors](https://learn.sparkfun.com/tutorials/transistors): BJTs and MOSFETs, with the switch circuit and its maths
+- [Lessons in Electric Circuits, Vol. III, ch. 4: Bipolar Junction Transistors](https://www.ibiblio.org/kuphaldt/electricCircuits/Semi/SEMI_4.html): the textbook chapter; its first sections cover the transistor as a switch
+- [SparkFun: Pull-up Resistors](https://learn.sparkfun.com/tutorials/pull-up-resistors): why a floating input needs a resistor holding it somewhere
 
 <sub>Syllabus: module M0.4, objectives 0.4.1–0.4.7. What these codes mean:
 `curriculum/stage-0/README.md`.</sub>

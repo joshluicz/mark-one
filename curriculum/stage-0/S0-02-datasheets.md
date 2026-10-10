@@ -101,6 +101,10 @@ used in a later session.
   highest voltage it's guaranteed to read as a "0" (LOW). Anything in between is a grey zone. You'll
   need these exact numbers in S0.10.
 
+![Figure 2.1: what VIH and VIL mean. Your datasheet gives the numbers.](img/logic-levels.svg)
+*Figure 2.1: what V<sub>IH</sub> and V<sub>IL</sub> mean. Your datasheet gives the numbers.*
+
+
 ### 4. Resistor ratings
 *(Syllabus 0.1.2.)* A resistor has three ratings that matter: its **resistance**, its
 **tolerance** (S0.1), and its **power rating**. The power turned into heat in a resistor is:
@@ -142,6 +146,11 @@ before one enters the house. One page, covering:
 - The LiPo protocol is written and filed.
 - **Module M0.1 is finished** when this session's list and S0.1's list are both complete. Write a
   build-log entry saying so.
+
+## Further reading (free)
+- [SparkFun: Electric Power](https://learn.sparkfun.com/tutorials/electric-power): what watts are, and why resistors get hot
+- [SparkFun: Logic Levels](https://learn.sparkfun.com/tutorials/logic-levels): V<sub>IH</sub>, V<sub>IL</sub> and the grey zone in between
+- [SparkFun: Battery Technologies](https://learn.sparkfun.com/tutorials/battery-technologies): the battery types, LiPo included, for the protocol in step 6
 
 <sub>Syllabus: module M0.1, objectives 0.1.2, 0.1.5, 0.1.6, 0.1.7. What these codes mean:
 `curriculum/stage-0/README.md`.</sub>

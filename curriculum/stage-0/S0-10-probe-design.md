@@ -56,13 +56,22 @@ know will help: in S0.4 a weak divider lost to a strong load, and in S0.8 a floa
 towards the middle of the supply with two equal, high-value resistors. A real logic output is
 low-impedance and overpowers that bias easily; with nothing connected, the tip sits mid-rail.</details>
 
-<details><summary>Hint 2: deciding</summary>Two thresholds. Above the HIGH threshold → HIGH LED.
-Below the LOW threshold → LOW LED. Between them → neither → FLOATING LED. The name for the first part
-is a <b>window comparator</b>. Look it up.</details>
+<details><summary>Hint 2: deciding</summary>
+
+Two thresholds. Above the HIGH threshold → HIGH LED. Below the LOW threshold → LOW LED. Between them
+→ neither → FLOATING LED. The name for the first part is a **window comparator**. Look it up.
+
+<img src="img/probe-blocks.svg" alt="Block diagram: tip, bias, two comparisons, three LEDs">
+
+</details>
 
 ---
 
 ## Design questions: answer each in writing, with numbers
+
+![Figure 10.1: the zones a logic input reads (from S0.2). A floating wire can sit anywhere.](img/logic-levels.svg)
+*Figure 10.1: the zones a logic input reads (from S0.2). A floating wire can sit anywhere.*
+
 1. **Thresholds.** Use the 74HC00 numbers you found in S0.2: V<sub>IH</sub> and V<sub>IL</sub> at
    5 V. Your HIGH threshold should sit at or above V<sub>IH</sub>, and your LOW threshold at or below
    V<sub>IL</sub>. Why must there be a gap between the two?
@@ -106,6 +115,11 @@ is a <b>window comparator</b>. Look it up.</details>
 - **If you can spare an hour, build it on a breadboard first.** Prove HIGH, LOW and FLOATING work
   there before committing to solder. A fault found on a breadboard costs minutes; on perfboard it
   can cost a rebuild.
+
+## Further reading (free)
+- [SparkFun: Logic Levels](https://learn.sparkfun.com/tutorials/logic-levels): the zones in Figure 10.1, in more depth
+- [SparkFun: How to Read a Schematic](https://learn.sparkfun.com/tutorials/how-to-read-a-schematic): before you draw one in KiCad
+- [KiCad documentation](https://docs.kicad.org/): the official guides, including getting started
 
 <sub>Syllabus: capstone C0 (the stage's final project). What these codes mean:
 `curriculum/stage-0/README.md`.</sub>

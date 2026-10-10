@@ -41,6 +41,10 @@ faster than you. If he does, let him, and film it.
 The beginner's mistake is melting solder on the iron's tip and dabbing it onto the joint. The
 solder lands on cold metal, doesn't stick, and forms a lumpy, weak blob.
 
+
+![Figure 6.1: the order of a good joint.](img/soldering-order.svg)
+*Figure 6.1: the order of a good joint.*
+
 The right way round: **heat the pad and the lead first**, with the tip touching both. Then feed the
 solder onto the **hot pad and lead**, not onto the iron. The hot metal melts the solder, the flux
 cleans the surfaces, and the solder flows into the joint. A good joint is shiny, smooth, shaped like
@@ -95,6 +99,10 @@ Push resistor legs through the perfboard and solder them. Photograph the board a
 
 ### 4. Make the bad ones on purpose
 *(Syllabus 0.3.2.)* So you can recognise them later, make one of each:
+
+![Figure 6.2: a good joint and five bad ones, drawn cut in half through the board.](img/solder-joints.svg)
+*Figure 6.2: a good joint and five bad ones, drawn cut in half through the board.*
+
 - **Cold joint:** move the lead while the solder is still setting.
 - **Starved joint:** use too little solder.
 - **Blob:** use far too much.
@@ -124,6 +132,10 @@ Clean ones now.
 ## Log and film
 - Film close-ups through a phone's macro mode or a magnifying loupe: a good joint, a cold one, and
   a bridge. Episode 2.
+
+## Further reading (free)
+- [Adafruit Guide to Excellent Soldering](https://learn.adafruit.com/adafruit-guide-excellent-soldering): the classic beginner's guide, with photos of good and bad joints
+- [SparkFun: How to Solder (Through-Hole)](https://learn.sparkfun.com/tutorials/how-to-solder-through-hole-soldering): step by step, including tip care
 
 <sub>Syllabus: module M0.3, objectives 0.3.1, 0.3.2, 0.3.3, 0.3.4. What these codes mean:
 `curriculum/stage-0/README.md`.</sub>

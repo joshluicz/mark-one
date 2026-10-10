@@ -33,6 +33,10 @@ load.)
   | 1 0 | 0 | 0 | 1 | **1** |
   | 1 1 | 0 | 1 | 1 | **0** |
 
+
+![Figure 9.1: the symbols for the four gates. The small circle on NOT and NAND means "then flip it".](img/gate-symbols.svg)
+*Figure 9.1: the symbols for the four gates. The small circle on NOT and NAND means "then flip it".*
+
   **NOT** flips its single input. **AND** is 1 only if both inputs are 1. **OR** is 1 if either is.
   **NAND** means "NOT AND": the opposite of AND. It's 0 *only* when both inputs are 1.
 - A **pull-up resistor** connects a wire to the + supply through a resistor. It holds the wire HIGH
@@ -81,10 +85,15 @@ when both inputs are HIGH. Questions to get you there:
 
 Draw it. Pick resistor values and write why. Add an LED with a 330 Ω resistor on the output so you
 can see it.
-<details><summary>Hint</summary>A resistor from 5 V to the output holds it high (a pull-up). Two
-NPNs <b>in series</b> between the output and ground: both must conduct to pull it low. Each base
-gets its own resistor from its input (~10 kΩ is a reasonable start; check it against your S0.8
-base-current method).</details>
+<details><summary>Hint</summary>
+
+A resistor from 5 V to the output holds it high (a pull-up). Two NPNs **in series** between the
+output and ground: both must conduct to pull it low. Each base gets its own resistor from its input
+(~10 kΩ is a reasonable start; check it against your S0.8 base-current method).
+
+<img src="img/nand-transistors.svg" alt="A NAND gate built from two NPN transistors in series under a pull-up resistor">
+
+</details>
 
 ### 3. Check the truth table
 Try all four input combinations. **Measure the output voltage** for each one, don't just look at the
@@ -115,6 +124,11 @@ then with two.
 The syllabus's pass rule: **you can work out any of NOT, AND or OR on paper, then build it without
 looking anything up.** Have your brother pick one; build it with this guide closed. Write a
 build-log entry marking **M0.4 closed**. Episode 3.
+
+## Further reading (free)
+- [SparkFun: Digital Logic](https://learn.sparkfun.com/tutorials/digital-logic): gates, truth tables and their symbols
+- [Lessons in Electric Circuits, Vol. IV, ch. 3: Logic Gates](https://www.ibiblio.org/kuphaldt/electricCircuits/Digital/DIGI_3.html): builds gates from transistors, which is exactly this session
+- [logic.ly demo](https://logic.ly/demo): try NOT, AND and OR from NANDs on screen before the bench
 
 <sub>Syllabus: module M0.4, objectives 0.4.8, 0.4.9, 0.4.10. What these codes mean:
 `curriculum/stage-0/README.md`.</sub>

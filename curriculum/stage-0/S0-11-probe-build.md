@@ -79,5 +79,9 @@ real total hours for the stage (add up the hours in your log entries; don't esti
 Next: the Stage 1 guide gets written, starting with number systems (binary and hex) and the Ben
 Eater 8-bit computer as the scaffold.
 
+## Further reading (free)
+- [Adafruit Guide to Excellent Soldering](https://learn.adafruit.com/adafruit-guide-excellent-soldering): a refresher before the final build
+- [KiCad documentation](https://docs.kicad.org/): for updating the schematic to match what you built
+
 <sub>Syllabus: capstone C0 (the stage's final project). What these codes mean:
 `curriculum/stage-0/README.md`.</sub>

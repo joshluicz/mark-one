@@ -70,6 +70,10 @@ the question above happening for real. Write down what happened.
 (switch or jumper), the four resistors and the LED. Decide where the + and − connections run.
 **No soldering until the drawing is finished.**
 
+![Figure 7.1: an example plan for a much simpler circuit (one resistor, one LED). Yours will have more parts, but the same idea.](img/perfboard-plan.svg)
+*Figure 7.1: an example plan for a much simpler circuit (one resistor, one LED). Yours will have more parts, but the same idea.*
+
+
 ### 4. Choose the wire
 *(Syllabus 0.3.8.)* Your circuit carries a few milliamps at most. Thin hookup wire is plenty.
 Write one line saying why.
@@ -91,6 +95,10 @@ Check each dimmer setting against your S0.5 prediction sheet.
 ## How you know you're done (module M0.3 finished)
 The syllabus's pass rule: **the board survives being dropped onto a desk from waist height, and
 still works afterwards.** Drop it. Film the drop. Write a build-log entry marking **M0.3 closed**.
+
+## Further reading (free)
+- [SparkFun: Working with Wire](https://learn.sparkfun.com/tutorials/working-with-wire): solid vs stranded, gauges, and stripping
+- [Adafruit Guide to Excellent Soldering](https://learn.adafruit.com/adafruit-guide-excellent-soldering): includes desoldering
 
 <sub>Syllabus: module M0.3, objectives 0.3.5, 0.3.6, 0.3.7, 0.3.8. What these codes mean:
 `curriculum/stage-0/README.md`.</sub>

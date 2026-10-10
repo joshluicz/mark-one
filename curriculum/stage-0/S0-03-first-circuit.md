@@ -41,6 +41,9 @@ real one, and if it didn't, finding out why.
   calculation says 383 Ω, you buy the nearest E12 value instead.
 - **Continuity mode** is a meter setting that beeps when two points are connected. Useful for
   checking which holes on a breadboard are joined.
+- A **schematic** (circuit diagram) is a map of a circuit drawn with standard symbols. If the
+  symbols are new to you, read *Reading circuit diagrams* in the [Stage 0 overview](README.md#reading-circuit-diagrams)
+  first.
 - A **fuse** is a deliberately weak wire inside the meter that melts if too much current flows, to
   protect the meter (and you).
 
@@ -56,6 +59,10 @@ classic way to blow its fuse.
 - **Current** is *how much flows through a wire*. To measure it, the current has to flow **through
   the meter**. So you **break the circuit open** and put the meter in the gap, in series. For this,
   the red probe moves to a different socket on the meter, usually marked **mA**.
+
+
+![Figure 3.1: the same circuit, measured two ways. Voltage: the meter sits alongside. Current: the circuit is opened and the meter fills the gap.](img/measure-v-vs-i.svg)
+*Figure 3.1: the same circuit, measured two ways. Voltage: the meter sits alongside. Current: the circuit is opened and the meter fills the gap.*
 
 In current mode, the meter has almost no resistance, on purpose, so it doesn't get in the way of
 the current it's measuring. That's why connecting it directly across a battery in current mode is
@@ -84,7 +91,12 @@ dangerous: nothing limits the current, and the fuse blows.
 ### 1. Find out how your breadboard is wired
 Each short row of five holes is one node. The two long lines along the edges are the **rails**,
 usually used for + and −. Some boards split each rail in the middle, so the left half and the
-right half aren't connected. Don't assume. Use the meter's continuity mode (the beeper) to check
+right half aren't connected. Don't assume.
+
+![Figure 3.2: what is joined to what, underneath a breadboard.](img/breadboard.svg)
+*Figure 3.2: what is joined to what, underneath a breadboard.*
+
+Use the meter's continuity mode (the beeper) to check
 which holes are connected on *your* board before you build anything.
 
 ### 2. Measure the battery
@@ -110,6 +122,10 @@ Write all of it down, dated, before building.
 
 ### 4. Build it
 Battery + → resistor → LED's **long leg** (anode) → LED's short leg (cathode) → battery −.
+
+![Figure 3.3: the circuit you're building, as a schematic.](img/led-circuit.svg)
+*Figure 3.3: the circuit you're building, as a schematic.*
+
 
 ### 5. Measure the voltages
 *(Syllabus 0.2.6.)* With the circuit running, measure the voltage **across the resistor**, **across
@@ -150,6 +166,14 @@ which of these caused it:
 
 ## Log and film
 - Film the prediction sheet first, then the meter reading. That's the opening of Episode 1.
+
+## Further reading (free)
+- [SparkFun: What is a Circuit?](https://learn.sparkfun.com/tutorials/what-is-a-circuit): loops, and why a broken loop stops everything
+- [SparkFun: How to Use a Breadboard](https://learn.sparkfun.com/tutorials/how-to-use-a-breadboard): photos of the metal strips inside
+- [SparkFun: How to Use a Multimeter](https://learn.sparkfun.com/tutorials/how-to-use-a-multimeter): the dial, the sockets, and measuring current safely
+- [SparkFun: Series and Parallel Circuits](https://learn.sparkfun.com/tutorials/series-and-parallel-circuits): the two ways to connect things
+- [Lessons in Electric Circuits, Vol. I, ch. 2: Ohm's Law](https://www.ibiblio.org/kuphaldt/electricCircuits/DC/DC_2.html): a free textbook; this chapter goes deeper on V = I × R
+- [PhET Circuit Construction Kit: DC](https://phet.colorado.edu/en/simulations/circuit-construction-kit-dc): build today's circuit in the browser first, with a virtual meter
 
 <sub>Syllabus: module M0.2, objectives 0.2.1, 0.2.3, 0.2.6, 0.2.7, 0.2.9. What these codes mean:
 `curriculum/stage-0/README.md`.</sub>

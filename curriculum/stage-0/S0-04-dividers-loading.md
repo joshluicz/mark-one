@@ -43,6 +43,10 @@ is wrong" problem later in the course starts with this idea.
 ---
 
 ## The idea: a divider, and why it "lies"
+
+![Figure 4.1: a voltage divider. Vout is measured from the midpoint to ground.](img/divider.svg)
+*Figure 4.1: a voltage divider. V<sub>out</sub> is measured from the midpoint to ground.*
+
 Put two resistors, R1 on top and R2 below, in series across a battery. The same current flows
 through both (current law). The battery's voltage is shared between them in proportion to their
 resistances (voltage law plus Ohm's law). Take the voltage from the point between them and you get
@@ -52,6 +56,10 @@ Now connect a third resistor from that midpoint to ground. It sits **in parallel
 resistors in parallel are smaller than one, so the bottom half of the divider now has less
 resistance, gets a smaller share of the voltage, and the midpoint voltage **drops**. That's
 loading.
+
+![Figure 4.2: a loaded divider. The load and R2 are now in parallel.](img/divider-loaded.svg)
+*Figure 4.2: a loaded divider. The load and R2 are now in parallel.*
+
 
 And here's the twist you'll find today: your **meter** is also a resistor, connected from the
 midpoint to ground every time you measure. Usually it's so large compared with the divider that you
@@ -101,6 +109,10 @@ find the real number for *your* meter and write it down.
 ### 5. The surprise
 *(The second question you answered at the start.)* Rebuild the divider with two **10 MΩ**
 resistors.
+
+![Figure 4.3: what's really connected when you measure a 10 MΩ divider.](img/divider-meter.svg)
+*Figure 4.3: what's really connected when you measure a 10 MΩ divider.*
+
 1. Predict the midpoint voltage as if the meter weren't there.
 2. Measure it.
 3. Now predict again, this time treating the meter as **one more resistor**, of its input impedance,
@@ -118,6 +130,11 @@ in each resistor (S0.2's formula). Which one gets warm? (Neither does. Say why.)
 - Your loaded and unloaded readings match your predictions within the resistors' tolerance, or the
   difference is explained.
 - You can explain the 10 MΩ result to your brother in two sentences, using the word "parallel".
+
+## Further reading (free)
+- [SparkFun: Voltage Dividers](https://learn.sparkfun.com/tutorials/voltage-dividers): the formula, worked examples, and where dividers turn up
+- [Lessons in Electric Circuits, Vol. I, ch. 6: Divider Circuits and Kirchhoff's Laws](https://www.ibiblio.org/kuphaldt/electricCircuits/DC/DC_6.html): the textbook version of steps 1–3
+- [Lessons in Electric Circuits, Vol. I, ch. 8: DC Metering Circuits](https://www.ibiblio.org/kuphaldt/electricCircuits/DC/DC_8.html): how meters work inside, and how they disturb what they measure
 
 <sub>Syllabus: module M0.2, objectives 0.2.1, 0.2.2, 0.2.3, 0.2.4, 0.2.8. What these codes mean:
 `curriculum/stage-0/README.md`.</sub>

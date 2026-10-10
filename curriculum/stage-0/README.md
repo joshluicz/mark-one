@@ -46,6 +46,47 @@ for the whole stage.
 
 ---
 
+## Reading circuit diagrams
+Most figures in these guides are **schematics** (circuit diagrams). A schematic is a map of the
+connections, not a picture of what the circuit looks like. A long line on paper might be two
+centimetres of wire on the breadboard, and the parts are drawn as standard symbols rather than as
+they look.
+
+Three rules cover almost everything:
+1. **A line is a wire.** Everything joined by a line is at the same voltage.
+2. **A dot means wires are joined.** Two lines that cross *without* a dot are not connected; they
+   just pass over each other on paper.
+3. **Ground** (the symbol with three shrinking lines) is the 0 V point everything is measured from.
+   Every ground symbol in one diagram is connected to every other one, even if no line is drawn
+   between them.
+
+![The schematic symbols used in Stage 0](img/symbols.svg)
+*The symbols you'll meet in Stage 0. Keep this page open while you read the session guides.*
+
+The **battery** symbol is a stack of long and short plates. The **long plate is +**. On the LED and
+diode symbols, the triangle points the way current is allowed to flow, and the bar is the − end.
+
+---
+
+## Where to learn more
+Each guide ends with **Further reading**: free sources, picked for that session. The main ones:
+- **[Lessons in Electric Circuits](https://www.ibiblio.org/kuphaldt/electricCircuits/)** by Tony R.
+  Kuphaldt: a complete electronics textbook, free online. Volume I covers DC circuits (S0.1–S0.5),
+  Volume III covers transistors (S0.8) and Volume IV covers logic gates (S0.9).
+- **[SparkFun Learn](https://learn.sparkfun.com/tutorials)**: short illustrated tutorials, one topic
+  each. Good when a single idea isn't clicking.
+- **[Adafruit Guide to Excellent Soldering](https://learn.adafruit.com/adafruit-guide-excellent-soldering)**:
+  for S0.6 and S0.7.
+- **Simulators**, to try a circuit before the parts arrive:
+  [PhET Circuit Construction Kit](https://phet.colorado.edu/en/simulations/circuit-construction-kit-dc)
+  (simplest), [Falstad](https://www.falstad.com/circuit/) (more powerful), and
+  [logic.ly](https://logic.ly/demo) for gates.
+
+The figures in these guides were drawn by Claude (Anthropic) with a script, `img/make_figures.py`.
+To change one, edit the script and run it again.
+
+---
+
 ## How every session runs
 1. Open the session's file. Read **Before you start**. If the safety section needs something you
    don't have, **stop**. That's a blocker to sort out, not a risk to take.

@@ -87,6 +87,10 @@ Each colour stands for a digit:
 |---|---|---|---|---|---|---|---|---|---|
 | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 |
 
+
+![Figure 1.1: reading a 4-band resistor. The colour key along the bottom is the one to memorise.](img/colour-bands.svg)
+*Figure 1.1: reading a 4-band resistor. The colour key along the bottom is the one to memorise.*
+
 On a **4-band** resistor:
 - **Band 1** and **band 2** are the first two digits of the value.
 - **Band 3** is the **multiplier**: how many zeros to add on the end.
@@ -132,12 +136,19 @@ You'll see three kinds *(syllabus 0.1.3)*:
 | **Electrolytic** | little can (cylinder) with a stripe down one side | µF to thousands of µF | **yes** | storing a larger amount of charge |
 | **Film** | small rectangular box | nF to µF | no | timing circuits and audio, where the value must stay steady |
 
+![Figure 1.2: the three kinds of capacitor. Only the electrolytic has a + and − side.](img/capacitor-types.svg)
+*Figure 1.2: the three kinds of capacitor. Only the electrolytic has a + and − side.*
+
 Small capacitors print a three-digit code instead of a value. The first two digits are a number,
 the third is how many zeros to add, and the answer is in **picofarads**. So `104` means 10 followed
 by 4 zeros = 100,000 pF = 100 nF = 0.1 µF.
 
 ### 6. Polarity: which way round
 *(Syllabus 0.1.4.)*
+
+![Figure 1.3: how to tell + from − on the three parts that care.](img/polarity.svg)
+*Figure 1.3: how to tell + from − on the three parts that care.*
+
 - **Electrolytic capacitor:** the stripe marks the **negative (−)** leg.
 - **LED:** the **longer leg is positive (+)**, called the **anode**. The rim of the LED also has a
   flat edge on one side: that side is negative, called the **cathode**.
@@ -178,6 +189,13 @@ extinguisher is.
 - Build-log entry: the first one. How long it took, who did what, and what you got wrong in the
   drill.
 - Film: Episode 0. The bench, the store, and the drill.
+
+## Further reading (free)
+- [SparkFun: Voltage, Current, Resistance, and Ohm's Law](https://learn.sparkfun.com/tutorials/voltage-current-resistance-and-ohms-law): the words at the top of this session, with pictures
+- [SparkFun: Resistors](https://learn.sparkfun.com/tutorials/resistors): colour codes, tolerance and power ratings
+- [SparkFun: Capacitors](https://learn.sparkfun.com/tutorials/capacitors): what they do, the types, and their markings
+- [SparkFun: Light-Emitting Diodes (LEDs)](https://learn.sparkfun.com/tutorials/light-emitting-diodes-leds): how LEDs work and which leg is which
+- [SparkFun: Diodes](https://learn.sparkfun.com/tutorials/diodes): the one-way valve for current
 
 <sub>Syllabus: module M0.1, objectives 0.1.1, 0.1.3, 0.1.4, 0.1.8. What these codes mean:
 `curriculum/stage-0/README.md`.</sub>

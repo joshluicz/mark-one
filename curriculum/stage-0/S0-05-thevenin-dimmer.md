@@ -38,6 +38,10 @@ ground. Thévenin's theorem says that **whatever is inside the box**, as long as
 resistors, you could replace it with one battery and one resistor in series and nobody outside
 could tell the difference.
 
+
+![Figure 5.1: Thévenin's theorem. From the outside (terminals A and B) you can't tell the two apart.](img/thevenin.svg)
+*Figure 5.1: Thévenin's theorem. From the outside (terminals A and B) you can't tell the two apart.*
+
 How do you find those two values? Two questions:
 1. **V<sub>th</sub>**: what voltage appears between the two wires with nothing connected? (The
    open-circuit voltage.)
@@ -80,7 +84,11 @@ Does it agree with step 1?
 
 ### 3. Design the dimmer
 One LED, plus a series resistor you can switch between four values: 470 Ω, 1 kΩ, 2.2 kΩ and
-4.7 kΩ. (Or put them in a chain and move a jumper wire along it.) **Write the prediction sheet
+4.7 kΩ. (Or put them in a chain and move a jumper wire along it.)
+
+![Figure 5.2: one way to build the dimmer. Each switch picks one resistor.](img/dimmer.svg)
+*Figure 5.2: one way to build the dimmer. Each switch picks one resistor.*
+ **Write the prediction sheet
 first:** for each position, the LED current and the power in the resistor. Date it.
 
 ### 4. Build and measure every position
@@ -99,6 +107,10 @@ list from S0.3 step 8.
 The syllabus's pass rule: **every measured value is within tolerance of its prediction, or the
 difference is explained in writing.** The finished object is the dimmer *plus* the dated
 prediction sheet. Write a build-log entry marking **M0.2 closed**. Episode 1 is complete.
+
+## Further reading (free)
+- [Lessons in Electric Circuits, Vol. I, ch. 10: DC Network Analysis](https://www.ibiblio.org/kuphaldt/electricCircuits/DC/DC_10.html): includes a full section on Thévenin's theorem with worked examples
+- [MIT OpenCourseWare 6.002: Circuits and Electronics](https://ocw.mit.edu/courses/6-002-circuits-and-electronics-spring-2007/): university lectures, if you want to go much further
 
 <sub>Syllabus: module M0.2, objectives 0.2.5, 0.2.9. What these codes mean:
 `curriculum/stage-0/README.md`.</sub>
