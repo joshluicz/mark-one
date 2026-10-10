@@ -10,10 +10,17 @@ Why the logging rules are strict, and what "good documentation" concretely means
 | **Build-log index** — one line per entry | `projects/<name>/BUILD-LOG.md` | With each entry |
 | **Lab notebook** — predict, then measure | `notebook/stage-N.md`, one chapter per stage, sessions added as dated sections, from `logs/NOTEBOOK-TEMPLATE.md` | During the session |
 | **Study notes** — videos, courses, reading | `study/<source>.md`, one file per source, dated sections, format in `study/README.md` | Same day as the study |
+| **Questions** — open questions and how they got answered, in my words | `study/questions.md`, one dated section per answer; the source note gets a `> Resolved (YYYY-MM-DD): see study/questions.md` line appended under the question | When answered |
+| **Journal** — free reflections on the work | `journal/YYYY-MM-DD.md`, one file per day, later entries that day appended | Same day |
 | **Sources** — the list of everything learned from | `curriculum/SOURCES.md` | When started, and rated when finished |
 | **Photos** | `projects/<name>/photos/` (builds) or `study/photos/` (notebook pages from study), named `YYYY-MM-DD-<desc>.jpg`, referenced from an entry, metadata stripped before commit | During |
 | **Spend** | `BUDGET.md` | When bought |
 | **Where things stand** | `STATE.md` | After each session |
+
+**Sent from Workbench** (the private learning site, built by Claude): study notes, build logs,
+recall results, answers and journal entries can be typed there and committed here. The server
+stamps today's date (Asia/Singapore) and adds nothing but the format and the footer
+*Written by Joshua on Workbench, YYYY-MM-DD.*; the words are mine. Same rules as everything else.
 
 **Nothing is rewritten after the fact.** A mistake found in an old entry gets a dated
 `> Correction (YYYY-MM-DD): …` line appended under it; the original stays. A wrong prediction is
