@@ -104,8 +104,9 @@ maths-heavy thing on the slate: dynamics, sensors, feedback. Where to look when 
 Algebra), **8.01 / 8.02** (Mechanics / Electricity and Magnetism).
 > Claude: check this — "physics 6.0001" as said: on MIT OCW, **6.0001** is *Introduction to Computer
 > Science and Programming in Python*, not physics. Physics is course 8 (8.01, 8.02). Which did you
-> Resolved (2026-10-11): see study/questions.md
 > mean?
+
+> Resolved (2026-10-11): see study/questions.md
 
 ▶️ **A taste before then, at Stage 0:** S0.3–S0.5 put a capacitor on the bench. A large-RC circuit
 charges slowly enough to read with a multimeter and a stopwatch. Predict the curve from the maths
