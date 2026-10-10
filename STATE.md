@@ -20,13 +20,15 @@
     shared Google account; move only if the channel gets traction. Not a commercial project.
 - **Workbench site** (learning site for both of them, built by Claude, credited): planned, not built.
   Runbook and spec in `docs/local-session/`. Built in a local session on Joshua's computer.
-  - 🟡 **Local session 2026-10-10, paused after B3** (repo `joshluicz/workbench`, private):
-    B1 ✅ repos on disk · B2 ✅ scaffold, sign-in page runs locally · B3 ✅ Supabase project
-    `workbench` in the personal `joshuas-forge` org (Singapore), schema + row-level security, sign-ups
-    off (tested: `signup_disabled`). **Resume at B4:** Joshua creates both users in the Supabase
-    dashboard (passwords typed by him), then Claude adds the profile rows. Still open from Part A:
-    the two GitHub tokens (A6) and the learner's notes repo (A5). Playwright browser added to Claude
-    Code for co-navigation; it loads in a new session. ⬜ YouTube channel not created yet (B9).
+  - 🟢 **Live: https://joshuas-workbench.pages.dev** (repo `joshluicz/workbench`, private; every push
+    to `main` deploys). Local session 2026-10-10: B1-B4 ✅ · B5 ✅ function deployed, Joshua's key
+    stored, **first real entry not sent yet** · B6 ✅ content seeded (Stage 0, study, recall items,
+    20 questions) · B7 ✅ Cloudflare Pages on Joshua's personal account · row-level security tested
+    at database and API level (13/13 pass). Redesigned the same day through the studio-agents design
+    pipeline, fully AI (`workbench/docs/DESIGN.md`).
+    **Next:** send the first entry from the Write page (B5's check) · finish B8 on a phone · B9
+    YouTube channel · the learner's notes repo and key (his quests walk him through it). Joshua's
+    own to-dos are a track inside the site ("Workbench to-do").
 - **Guides are textbook-style for a human reader**: terms built up before use, questions written
   out in full (`CLAUDE.md` → Writing guides). All of Stage 0 rewritten to that pattern the same day.
 
