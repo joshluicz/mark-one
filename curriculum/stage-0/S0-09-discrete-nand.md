@@ -1,41 +1,120 @@
-# S0.9 — Discrete NAND, then NOT, AND and OR from it
-**Module M0.4 · 🛠️ bench · ~3 h · objectives 0.4.8, 0.4.9, 0.4.10 · closes M0.4**
+# S0.9 — Build a NAND gate from transistors, then NOT, AND and OR from NANDs
 
-## Why this session
-Module zero of the CPU. NAND is *functionally complete* — every gate in the machine you build next
-can be made from it. Today you prove that with your hands.
+> **In one line:** turn transistor switches into your first logic gate, then prove that this one
+> type of gate is enough to build every other kind.
+
+**A bench session, about 3 hours.** This session finishes module M0.4.
+
+---
+
+## Where this fits
+This is where electronics turns into computing. A **logic gate** takes inputs that are each 1 or 0
+and produces an output that is 1 or 0 according to a fixed rule. The gate you build today, **NAND**,
+is special: you can build *any* other gate out of NANDs, and so, in principle, an entire computer.
+The CPU in Stage 1 starts here.
+
+---
+
+## Words you'll need
+(Builds on S0.8: NPN transistor, base, collector, emitter, saturation, floating. And S0.4: divider,
+load.)
+
+- **HIGH and LOW** (or **1 and 0**): in a 5 V circuit, a wire near 5 V counts as HIGH (1) and a wire
+  near 0 V counts as LOW (0). S0.2's V<sub>IH</sub> and V<sub>IL</sub> are the exact cut-offs for a
+  real chip.
+- A **truth table** lists every possible combination of inputs and the output for each. A gate with
+  two inputs has four rows: 00, 01, 10, 11.
+- The basic gates:
+
+  | Inputs A B | NOT A | AND | OR | **NAND** |
+  |---|---|---|---|---|
+  | 0 0 | 1 | 0 | 0 | **1** |
+  | 0 1 | 1 | 0 | 1 | **1** |
+  | 1 0 | 0 | 0 | 1 | **1** |
+  | 1 1 | 0 | 1 | 1 | **0** |
+
+  **NOT** flips its single input. **AND** is 1 only if both inputs are 1. **OR** is 1 if either is.
+  **NAND** means "NOT AND": the opposite of AND. It's 0 *only* when both inputs are 1.
+- A **pull-up resistor** connects a wire to the + supply through a resistor. It holds the wire HIGH
+  unless something stronger pulls it LOW.
+- **Functionally complete** means a gate type can be used to build every other gate. NAND is
+  functionally complete.
+- **Fan-out** is how many other gate inputs one gate's output can drive before its signal gets too
+  weak.
+
+---
+
+## The idea: a gate is just switches in a pattern
+In S0.8 you saw that a transistor, switched on, connects its collector to ground. Now picture the
+output wire held HIGH by a pull-up resistor. Put a transistor between that wire and ground: switch
+it on and the output is pulled LOW.
+
+The question for today is how to arrange **two** such switches so the output goes LOW **only when
+both inputs are HIGH**. That's the NAND rule. Work it out yourself in step 2 before opening the
+hint.
+
+---
 
 ## Before you start
-- **Hazard:** low. 5 V, current limit ~100 mA.
-- **Have:** 2N3904 ×8+, 1 kΩ and 10 kΩ resistors, LEDs + 330 Ω for indicators, jumper wires.
-- **Write answers first:** Q0.4.b (XOR from NANDs — attempt it), Q0.4.c.
+- **Hazards:** low. 5 V, with the current limit at about 100 mA.
+- **You need:** at least eight 2N3904 transistors; 1 kΩ and 10 kΩ resistors; LEDs with 330 Ω
+  resistors to show outputs; jumper wires.
+- **Answer these in writing first:**
+  1. Draw an XOR gate (output 1 when the two inputs are *different*) using only NAND gates. What's
+     the smallest number of NANDs it can be done with, and how did you convince yourself that's the
+     smallest? (Try it now; you may need to come back to it after the session.)
+  2. Your NAND's output sits at 2.5 V when both inputs are LOW. What's wrong?
+
+---
 
 ## Steps
-1. **Truth table first.** NAND: output is LOW only when **both** inputs are HIGH.
-2. **Design the circuit yourself** (0.4.8). You have: NPN switches (S0.8), resistors, 5 V. The
-   output must go LOW only when both inputs are HIGH. Questions to get you there: what pulls the
-   output HIGH when nothing is switched on? How do you arrange two switches so the output is
-   connected to ground only when *both* are closed? Draw it, then pick resistor values and justify
-   them. Add an LED + 330 Ω indicator on the output.
-   <details><summary>Hint</summary>A resistor from 5 V to the output holds it high (a pull-up).
-   Two NPNs <b>in series</b> between the output and ground — both must conduct to pull it low.
-   Each base gets its own resistor from its input (~10 kΩ is a reasonable start; check it against
-   your S0.8 base-current method).</details>
-3. **Verify the truth table.** All four input combinations. **Measure the output voltage** for each,
-   not just the LED. Log them.
-4. **The pull-up** (0.4.9). Predict what happens with the pull-up removed. Remove it. Measure. Then
-   swap 1 kΩ for 10 kΩ and measure the HIGH output with the LED attached. Why did it drop? (The
-   pull-up and the load form a divider — S0.4 again.) This is Q0.4.c.
-5. **NOT, AND and OR — from NANDs only** (0.4.10). Derive each on paper first from the truth
-   tables, *then* build and verify. This is the module's pass test, so try hard before opening a hint.
-   <details><summary>Hint — NOT</summary>What does NAND do when both inputs are the same signal?</details>
-   <details><summary>Hint — AND</summary>NAND is AND followed by something. Undo the something.</details>
-   <details><summary>Hint — OR</summary>Invert each input first, then NAND them. Why that works
-   has a name — De Morgan's law — look it up; you'll formalise it in M1.1.</details>
-6. **Fan-out, briefly.** When one NAND's output drives another NAND's input, the second base
-   resistor loads the first pull-up. Measure the HIGH level with one and with two gates attached.
 
-## Done when — closes M0.4
-The syllabus pass criterion: **you can derive any of NOT, AND, OR on paper, then build it without a
-reference.** Have your brother pick one; build it with the guide closed. → Build-log entry marking
-**M0.4 closed**. Ep 3.
+### 1. Truth table first
+Write the NAND truth table from memory. The rule to hold onto: the output is **LOW only when both
+inputs are HIGH**.
+
+### 2. Design the circuit yourself
+*(Syllabus 0.4.8.)* You have: NPN switches (S0.8), resistors and 5 V. The output must go LOW only
+when both inputs are HIGH. Questions to get you there:
+- What holds the output HIGH when neither transistor is on?
+- How do you arrange two switches so the output connects to ground **only when both are on**?
+
+Draw it. Pick resistor values and write why. Add an LED with a 330 Ω resistor on the output so you
+can see it.
+<details><summary>Hint</summary>A resistor from 5 V to the output holds it high (a pull-up). Two
+NPNs <b>in series</b> between the output and ground: both must conduct to pull it low. Each base
+gets its own resistor from its input (~10 kΩ is a reasonable start; check it against your S0.8
+base-current method).</details>
+
+### 3. Check the truth table
+Try all four input combinations. **Measure the output voltage** for each one, don't just look at the
+LED. Write the readings down.
+
+### 4. What the pull-up does
+*(Syllabus 0.4.9.)* Predict what happens if you remove the pull-up resistor. Remove it and measure.
+Then swap the 1 kΩ pull-up for 10 kΩ and measure the HIGH output with the LED connected. Why did it
+drop? (The pull-up and the LED's circuit form a divider, which is S0.4's idea again. This is the
+2.5 V question's territory too.)
+
+### 5. NOT, AND and OR, from NANDs only
+*(Syllabus 0.4.10.)* For each one, work it out on paper from the truth tables first, *then* build it
+and check it. This is how the module is passed, so try hard before opening a hint.
+<details><summary>Hint: NOT</summary>What does NAND do when both inputs are the same signal?</details>
+<details><summary>Hint: AND</summary>NAND is AND followed by something. Undo the something.</details>
+<details><summary>Hint: OR</summary>Invert each input first, then NAND them. Why that works has a
+name, De Morgan's law. Look it up; you'll study it properly in Stage 1.</details>
+
+### 6. Fan-out, briefly
+When one NAND's output feeds another NAND's input, the second gate's base resistor draws current
+from the first gate's pull-up. Measure the first gate's HIGH output voltage with one gate attached,
+then with two.
+
+---
+
+## How you know you're done (module M0.4 finished)
+The syllabus's pass rule: **you can work out any of NOT, AND or OR on paper, then build it without
+looking anything up.** Have your brother pick one; build it with this guide closed. Write a
+build-log entry marking **M0.4 closed**. Episode 3.
+
+<sub>Syllabus: module M0.4, objectives 0.4.8, 0.4.9, 0.4.10. What these codes mean:
+`curriculum/stage-0/README.md`.</sub>

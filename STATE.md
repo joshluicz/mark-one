@@ -10,6 +10,10 @@
 | **Retention** (new 2026-10-08) | 🟡 System drafted — recall checks on a growing interval + a gap protocol (`curriculum/RETENTION.md`) | ⬜ **Rule on the keep list** (Claude's draft) · first recall checks: XOR, integration by parts · ⬜ idea: a maths/physics-heavy stretch after the CPU (analog / control) | — |
 | RC car · irrigation · handheld · RC plane | ⏸️ parked | — | Superseded as the starting slate by Bench to Flight (see `PROJECTS.md`) |
 
+## Ruled 2026-10-10
+- **Guides are textbook-style for a human reader**: terms built up before use, questions written
+  out in full (`CLAUDE.md` → Writing guides). All of Stage 0 rewritten to that pattern the same day.
+
 ## Ruled 2026-10-03
 - ⭐ **Joshua does the work and the research**; Claude coaches (`CLAUDE.md`). Guides hide answers in hints.
 - **Stages 0–1 stay as written** (probe, CPU) — the foundations.

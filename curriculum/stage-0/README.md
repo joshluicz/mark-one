@@ -1,61 +1,108 @@
-# Stage 0 — Foundations and craft · session guide
+# Stage 0 — Foundations and craft
 
-**Goal of the stage:** go from *no components, no iron, no theory in your hands* to a working
-**logic probe** — a handheld instrument that tells HIGH, LOW and **floating** apart — that you will
-debug the whole CPU with. Syllabus modules M0.1–M0.4 + capstone C0.
+> **Where this stage starts:** no components, no soldering iron, no electronics theory.
+> **Where it ends:** a working **logic probe**, a handheld tool that tells you whether a wire is
+> HIGH, LOW, or **floating** (connected to nothing). You'll use it to debug the whole CPU in Stage 1.
 
-**Shape:** 11 sessions. A session is **2–3 hours** at the bench (weekend) or **~1 hour** of
-reading/design (weekday evening — marked 🌙). Realistic pace: **two bench sessions per weekend plus
-one or two evenings** → about **5 weeks**, finishing early-to-mid November.
+---
 
-## How to run every session
-1. Open the session file. Read **Before you start** — if the hazard line needs kit you don't have,
-   stop; that's a blocker, not a footnote (`../../CLAUDE.md` red line 3).
-2. Answer the listed self-check questions **in writing, before building**.
-3. Do the steps in order. Every number gets **predicted first** in the lab notebook
-   (`../../notebook/stage-0.md`).
-4. **Done when** is the only exit. Not "watched the video", not "it lit up".
-5. Answer the same questions again. The ones you get wrong the second time go on camera.
-6. Write the build-log entry (a new file in `../../projects/bench-to-flight/log/`, indexed in
-   `BUILD-LOG.md`) — real duration, rounded down, who did what, **what failed in more detail than
-   what worked**.
-7. Photograph the bench before you tidy it.
+## How to read these guides
+Each session has its own file (S0.1 to S0.11). They're written like textbook chapters, and every
+one follows the same pattern:
+
+1. **In one line**: what the session is about.
+2. **Where this fits**: why it matters and how it connects to the rest.
+3. **Words you'll need**: every new term, explained before it's used. Each session builds on the
+   words from the ones before it, so read them in order.
+4. **The idea**: the main concept, explained plainly.
+5. **Before you start**: safety, what you need, and some questions to answer *before* building.
+6. **Steps**: what to actually do.
+7. **How you know you're done**: the only way out of a session.
+
+**Answers are hidden in folded "Hint" boxes.** Try first; open a hint only if you're stuck, and
+write in the log that you did. Doing the thinking is the point.
+
+### What the codes mean
+The guides follow a **syllabus** (the full course plan, kept as a separate page:
+https://claude.ai/artifact/FHaGsWE8ByLJts76SCWkuU). Its codes appear in small print at the bottom of
+each guide, so you can trace things back to it:
+
+| Code | Means | Example |
+|---|---|---|
+| **S0.3** | **Session** 3 of Stage 0: one of these guide files | S0.3 = the first circuit |
+| **M0.2** | **Module** 2 of Stage 0: a group of sessions that ends with something built | M0.2 = DC circuits, ending with the dimmer |
+| **0.2.6** | **Objective** 6 of module M0.2: one specific thing you must be able to *do* | 0.2.6 = measure voltage, current and resistance correctly |
+| **C0** | **Capstone** of Stage 0: the stage's final project | the logic probe |
+
+You don't need the codes to follow the guides. They're there so a mistake in the log can be traced
+to the exact thing that hadn't been learned yet.
+
+### The session types
+- 🛠️ **Bench session:** 2–3 hours at the bench, usually at the weekend.
+- 🌙 **Evening session:** about an hour of reading or design at a desk, no tools.
+
+A realistic pace is two bench sessions a weekend plus one or two evenings, which is about **5 weeks**
+for the whole stage.
+
+---
+
+## How every session runs
+1. Open the session's file. Read **Before you start**. If the safety section needs something you
+   don't have, **stop**. That's a blocker to sort out, not a risk to take.
+2. Answer the questions **in writing, before building**.
+3. Do the steps in order. Every number gets **predicted first**, written in the notebook
+   (`notebook/stage-0.md`), and only then measured.
+4. **"How you know you're done"** is the only way out. "I watched the video" or "it lit up" doesn't
+   count.
+5. Answer the same questions again. Any you still get wrong go on camera.
+6. Write the build-log entry: a new file in `projects/bench-to-flight/log/`, listed in
+   `BUILD-LOG.md`. Real time spent (rounded down), who did what, and **what failed, in more detail
+   than what worked**.
+7. Photograph the bench before you tidy up.
+
+---
 
 ## The sessions
 
-| # | Session | Module | Type | Needs (new this session) |
+| # | Session | Module | Type | New things you need for it |
 |---|---|---|---|---|
-| [S0.1](S0-01-logbook-parts-safety.md) | Logbook, parts store, the three hazards | M0.1 | 🛠️ | component assortment, multimeter, labelled box/drawers |
+| [S0.1](S0-01-logbook-parts-safety.md) | Logbook, parts store, and the three hazards | M0.1 | 🛠️ | component assortment, multimeter, labelled box or drawers |
 | [S0.2](S0-02-datasheets.md) | Reading a datasheet | M0.1 | 🌙 | nothing (PDFs) |
-| [S0.3](S0-03-first-circuit.md) | First circuit — LED, resistor, measured current | M0.2 | 🛠️ | breadboard + jumper wire, 9 V battery + clip, red LEDs |
-| [S0.4](S0-04-dividers-loading.md) | Dividers, loading, and the meter as a circuit element | M0.2 | 🛠️ | 10 kΩ, 10 MΩ resistors |
-| [S0.5](S0-05-thevenin-dimmer.md) | Thévenin, and the M0.2 object: the dimmer | M0.2 | 🛠️ | slide switch or jumpers |
-| [S0.6](S0-06-soldering-joints.md) | Soldering I — fifty joints | M0.3 | 🛠️ | **soldering station**, solder, flux, practice perfboard, eye protection |
-| [S0.7](S0-07-desolder-perfboard.md) | Soldering II — desoldering, and the permanent dimmer | M0.3 | 🛠️ | braid, pump, perfboard, hookup wire |
-| [S0.8](S0-08-transistor-switch.md) | The transistor as a switch | M0.4 | 🛠️ | **5 V source**, 2N3904, 2N7000 |
-| [S0.9](S0-09-discrete-nand.md) | Discrete NAND → NOT, AND, OR | M0.4 | 🛠️ | more 2N3904s |
-| [S0.10](S0-10-probe-design.md) | Capstone design — the logic probe, on paper and in KiCad | C0 | 🌙🌙 | KiCad (free), a 74HC datasheet |
-| [S0.11](S0-11-probe-build.md) | Capstone build — perfboard, enclosure, acceptance test | C0 | 🛠️🛠️ | probe parts from S0.10's BOM, small enclosure |
+| [S0.3](S0-03-first-circuit.md) | First circuit: LED, resistor, measured current | M0.2 | 🛠️ | breadboard and jumper wire, 9 V battery and clip, red LEDs |
+| [S0.4](S0-04-dividers-loading.md) | Voltage dividers, loading, and the meter as part of the circuit | M0.2 | 🛠️ | 10 kΩ and 10 MΩ resistors |
+| [S0.5](S0-05-thevenin-dimmer.md) | Thévenin's theorem, and the dimmer | M0.2 | 🛠️ | slide switch or jumpers |
+| [S0.6](S0-06-soldering-joints.md) | Soldering I: fifty joints | M0.3 | 🛠️ | **soldering station**, solder, flux, practice perfboard, **eye protection** |
+| [S0.7](S0-07-desolder-perfboard.md) | Soldering II: desoldering, and the permanent dimmer | M0.3 | 🛠️ | desoldering braid, solder pump, perfboard, hookup wire |
+| [S0.8](S0-08-transistor-switch.md) | The transistor as a switch | M0.4 | 🛠️ | **5 V power source**, 2N3904 and 2N7000 transistors |
+| [S0.9](S0-09-discrete-nand.md) | A NAND gate from transistors, then NOT, AND and OR | M0.4 | 🛠️ | more 2N3904s |
+| [S0.10](S0-10-probe-design.md) | Final project, part 1: designing the logic probe | C0 | 🌙🌙 | KiCad (free software), a 74HC chip's datasheet |
+| [S0.11](S0-11-probe-build.md) | Final project, part 2: building and testing the probe | C0 | 🛠️🛠️ | the parts from S0.10's shopping list, a small case |
+
+---
 
 ## Buy in stages, not all at once
-The syllabus prices the full bench at ~S$400 "before M0.1". You don't need it before M0.1. What
-each purchase actually gates:
+The syllabus prices the full bench at about S$400. You don't need all of it on day one. Here's what
+each purchase actually unlocks:
 
-| By session | You need | Second-hand OK? |
+| Needed by | What | Second-hand OK? |
 |---|---|---|
-| **S0.1** | multimeter (fused current input, fast continuity beep) · component assortment (E12 resistors, ceramic + electrolytic caps, LEDs, 2N3904, 2N7000, headers) · storage | Multimeter ✅ — check the fuse is intact and continuity beeps instantly. Assortment ⛔ buy new |
-| **S0.3** | breadboard (×1–2 now; 4–6 by Stage 1) · solid-core jumper wire · 9 V battery + snap clip | ⛔ **new** — worn breadboards have drifting contact resistance (syllabus, "breadboard parasitics") and give faults that look like *your* mistakes |
-| **S0.6** | temperature-controlled soldering station · 0.6–0.8 mm rosin-core solder · flux · tip cleaner · **eye protection** · ventilation (fan/open window) | Station ✅ — must be **temperature-controlled**, tips must be available to buy. Consumables ⛔ new |
-| **S0.7** | desoldering braid + pump · perfboard · hand tools (flush cutters, strippers, tweezers, helping hands) | Hand tools ✅ |
-| **S0.8** | a regulated **5 V** source — a USB breadboard power module works; a bench supply is better | Bench supply ✅ — must have an **adjustable current limit**; ask the seller to show the CC indicator light when shorted |
-| **Stage 1** | 8-ch USB logic analyser · more breadboards · 74HC chips | Analyser ✅ |
+| **S0.1** | A multimeter (with a fuse on its current input, and a continuity beep that's instant); a component assortment (standard resistor values, ceramic and electrolytic capacitors, LEDs, 2N3904 and 2N7000 transistors, pin headers); storage | Multimeter ✅: check the fuse is intact and the beep is instant. Assortment ⛔: buy new |
+| **S0.3** | A breadboard (1–2 now, 4–6 by Stage 1); solid-core jumper wire; 9 V battery and snap clip | ⛔ **New only.** A worn breadboard has loose, unreliable contacts, and its faults look like *your* mistakes |
+| **S0.6** | A temperature-controlled soldering station; 0.6–0.8 mm rosin-core solder; flux; tip cleaner; **eye protection**; ventilation (fan and an open window) | Station ✅, as long as it's temperature-controlled and you can still buy tips for it. Consumables ⛔: new |
+| **S0.7** | Desoldering braid and pump; perfboard; hand tools (flush cutters, wire strippers, tweezers, a "helping hands" clamp) | Hand tools ✅ |
+| **S0.8** | A steady **5 V** power source: a USB breadboard power module works; an adjustable bench power supply is better | Bench supply ✅, but it **must** have an adjustable current limit. Ask the seller to short the output and show you the current-limit light coming on |
+| **Stage 1** | An 8-channel USB logic analyser; more breadboards; 74HC chips | Analyser ✅ |
 
-## What to film (no editing required)
-The syllabus rule: **no object, no close, no episode.** Episodes fall out of the module objects:
-- **Ep 0** — the bench: what you bought, second-hand finds, what each instrument is for.
-- **Ep 1** (S0.3–S0.5) — "Predicted vs measured": the LED, the divider surprise, the dimmer.
-- **Ep 2** (S0.6–S0.7) — fifty joints, the five worst diagnosed; the drop test.
-- **Ep 3** (S0.8–S0.9) — a logic gate from four transistors; the floating gate that reacts to your finger.
-- **Ep 4** (S0.10–S0.11) — the logic probe, and it catching a floating input.
+---
 
-⚠️ Raw build footage and a voiceover. Editing time is not curriculum time.
+## What to film (no editing needed)
+The syllabus rule: **no finished object, no closed module, no episode.** Episodes come out of the
+things you build:
+- **Episode 0:** the bench. What you bought, any second-hand finds, what each instrument is for.
+- **Episode 1** (S0.3–S0.5): "Predicted vs measured". The LED, the divider surprise, the dimmer.
+- **Episode 2** (S0.6–S0.7): fifty joints, the five worst diagnosed, and the drop test.
+- **Episode 3** (S0.8–S0.9): a logic gate from four transistors, and the floating gate that reacts
+  to your finger.
+- **Episode 4** (S0.10–S0.11): the logic probe, catching a floating input.
+
+⚠️ Raw footage and a voiceover only. Time spent editing isn't time spent learning.

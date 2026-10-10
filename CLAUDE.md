@@ -66,6 +66,14 @@ exception: it is tracked in `BUDGET.md` (S$, real purchases only, no receipts or
 ## Writing guides (the curriculum)
 - The syllabus artifact is the **spec**; `curriculum/stage-N/` is the **lesson layer**. If they
   disagree, the syllabus wins and the guide is fixed.
+- ⭐ **Guides are written for a human reader, like a textbook** (ruled 2026-10-10, Joshua, after his
+  brother found the Stage 0 guides "cryptic… written almost like for AI"). Jargon is fine; jargon
+  that hasn't been **built up first** is not. Every guide follows the pattern in
+  `curriculum/stage-0/README.md`: *In one line → Where this fits → Words you'll need → The idea →
+  Before you start → Steps → How you know you're done*. Define every term before its first use;
+  write syllabus questions out in full (never just "Q0.2.d"); keep syllabus codes in the small print.
+  The textbook layer explains **concepts**; worked answers to the session's own questions and
+  design problems still sit behind hints.
 - Write guides **one stage ahead**, never further — the Stage 1 guide is written when Stage 0 closes.
 - A guide may state *how* to do something and *what to predict*. ⛔ It never states a part's specific
   rating as fact without pointing to the datasheet it came from — the session makes them look it up.
