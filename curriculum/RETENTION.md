@@ -119,7 +119,7 @@ what's due.
 
 | Item | My recall task | Last check | Result | Next due |
 |---|---|---|---|---|
-| XOR from its truth table | Blank page: truth table → sum of products → gate diagram | — | — | first check next session |
+| XOR from its truth table | Blank page: truth table → sum of products → gate diagram | 2026-10-14 | ✅ | 2026-10-15 |
 | Python (CS50P sets done so far) | Redo one finished problem set from the spec, no peeking at my old code | 2026-10-08 (redid the sets) | ✅ (my account: "breezed through") | 2026-10-11 |
 | Integration by parts | Integrate one example cold (from an 18.01 problem set) | — (self-rated: forgotten, 2026-10-08) | — | first check next session |
 
