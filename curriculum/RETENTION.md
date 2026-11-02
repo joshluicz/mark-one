@@ -121,7 +121,7 @@ what's due.
 |---|---|---|---|---|
 | XOR from its truth table | Blank page: truth table → sum of products → gate diagram | 2026-11-02 | 🟡 | 2026-11-03 |
 | Python (CS50P sets done so far) | Redo one finished problem set from the spec, no peeking at my old code | 2026-11-02 | ✅ | 2026-11-03 |
-| Integration by parts | Integrate one example cold (from an 18.01 problem set) | — (self-rated: forgotten, 2026-10-08) | — | first check next session |
+| Integration by parts | Integrate one example cold (from an 18.01 problem set) | 2026-11-02 | 🟡 | 2026-11-03 |
 
 ⬜ **Tool:** this log is the starting point — no new app, and every Claude session surfaces what's
 due. If I want reviews on my phone in dead time, Anki does the same scheduling automatically; my
