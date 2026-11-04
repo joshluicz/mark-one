@@ -6,7 +6,7 @@
 | Project | Phase | Next action | Blocked on |
 |---|---|---|---|
 | **Bench to Flight** (main track) | ⬜ Stage 0, S0.1 not started | Buy the S0.1 + S0.3 kit (multimeter, component assortment, breadboard, 9 V clip) → run **S0.1** | Parts — not yet ordered; first thing 2026-10-04, screen-recorded |
-| Study track | 🟢 **Nand2Tetris Part I** at **unit 1.3** (2026-10-04; none since) · **CS50P** second pass: sets 0–1 done, set 2 (loops) started 2026-10-08, shorter and more Pythonic than last year (`study/cs50p.md`) | Continue unit 1.x → project 1 · next CS50P set | — |
+| Study track | 🟢 **Nand2Tetris Part I**: videos at **unit 4.1**; gone back to finish the **project 3** (memory) chips (Joshua, 2026-11-04). 8-bit register built 2026-11-03 (`journal/2026-11-03.md`); 8-bit RAM8 built 2026-11-04, wiring checked by Claude from his screenshot (not committed: course solutions stay unpublished). ⬜ RAM8 still to test: a different value in each of the 8 addresses, all read back · **CS50P** second pass: sets 0–1 done, set 2 (loops) started 2026-10-08, shorter and more Pythonic than last year (`study/cs50p.md`) | Finish project 3 → continue unit 4.x · next CS50P set | — |
 | **Retention** (new 2026-10-08) | 🟡 System drafted — recall checks on a growing interval + a gap protocol (`curriculum/RETENTION.md`) | ⬜ **Rule on the keep list** (Claude's draft) · first recall checks: XOR, integration by parts · ⬜ idea: a maths/physics-heavy stretch after the CPU (analog / control) | — |
 | RC car · irrigation · handheld · RC plane | ⏸️ parked | — | Superseded as the starting slate by Bench to Flight (see `PROJECTS.md`) |
 
