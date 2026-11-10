@@ -1,13 +1,14 @@
 # State
 
-**Phase:** Stage 0 starting. Repo set up and the Stage 0 session guides written
-2026-10-03. Nothing built yet.
+**Phase:** Stage 0. Parts arrived 2026-10-30 and the bench is set up (`journal/2026-11-02.md`).
+⬜ Whether S0.1 is finished isn't recorded anywhere: ask before assuming either way.
+*(Study and Retention rows refreshed 2026-11-10 from Joshua's report that day and his journal.)*
 
 | Project | Phase | Next action | Blocked on |
 |---|---|---|---|
-| **Bench to Flight** (main track) | ⬜ Stage 0, S0.1 not started | Buy the S0.1 + S0.3 kit (multimeter, component assortment, breadboard, 9 V clip) → run **S0.1** | Parts — not yet ordered; first thing 2026-10-04, screen-recorded |
-| Study track | 🟢 **Nand2Tetris Part I** at **unit 1.3** (2026-10-04; none since) · **CS50P** second pass: sets 0–1 done, set 2 (loops) started 2026-10-08, shorter and more Pythonic than last year (`study/cs50p.md`) | Continue unit 1.x → project 1 · next CS50P set | — |
-| **Retention** (new 2026-10-08) | 🟡 System drafted — recall checks on a growing interval + a gap protocol (`curriculum/RETENTION.md`) | ⬜ **Rule on the keep list** (Claude's draft) · first recall checks: XOR, integration by parts · ⬜ idea: a maths/physics-heavy stretch after the CPU (analog / control) | — |
+| **Bench to Flight** (main track) | ⬜ Stage 0. Kit arrived 2026-10-30; first multimeter reading (9.63 V on the 9 V battery) and one LED burnt out straight across the battery (`journal/2026-11-02.md`). No build-log entry yet | ⬜ Put that first session in the build log (dictated is fine) → **S0.1**, then S0.2–S0.3 (this week on the Workbench plan) | — |
+| Study track | 🟢 **Nand2Tetris Part I**: projects 1–2 done 2026-10-14 (`journal/2026-10-14.md`); **project 3 (memory)** under way, 8-bit register built 2026-11-03 (`journal/2026-11-03.md`); 🟡 **stuck on the program counter** (reported 2026-11-10: it works in the logic simulator with a glitch; not yet tried in the course's own HDL) · **CS50P** second pass: at **week 8** (reported 2026-11-10: lecture done, 2 of 4 shorts watched, a bit over halfway through the first of the set's three problems; the final project comes next) · **18.01**: paused, wants to restart soon (reported 2026-11-10) | Run the PC in the course's HDL tools → finish project 3 · finish set 8 · choose a final project (he wants help thinking it through) · 18.01: Exam 1 cold | ⚠️ `study/nand2tetris.md` (last entry 2026-10-04) and `study/cs50p.md` (2026-10-08) are behind: his to write or dictate |
+| **Retention** (new 2026-10-08) | 🟡 Running. XOR: round 1 ✅ 2026-10-14, round 2 🟡 2026-11-02 (mixed it up with NOR at first). Integration by parts: 🟡 2026-11-02 (needed the formula). Python: ✅ 2026-11-02, and in live use through CS50P. **All three have been due since 2026-11-03** (`curriculum/RETENTION.md` → Recall log) | Do the overdue checks: XOR is **round 3**, on the same interval because round 2 was 🟡 · ⬜ **Rule on the keep list** (still Claude's draft) · ⬜ idea: a maths/physics-heavy stretch after the CPU (analog / control) | — |
 | RC car · irrigation · handheld · RC plane | ⏸️ parked | — | Superseded as the starting slate by Bench to Flight (see `PROJECTS.md`) |
 
 ## Ruled 2026-10-10
