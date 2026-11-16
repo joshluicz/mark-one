@@ -34,3 +34,7 @@ The point is that you did the thinking.
 When the measurement disagrees, the gap is the most valuable thing you'll learn that day. Find its
 cause before moving on. Notebook: `../notebook/stage-N.md` · template:
 `../logs/NOTEBOOK-TEMPLATE.md`.
+
+## Study support (outside the stages)
+- `python/oop-property-getters-setters.md`: `@property`, getters and setters, for CS50P week 8
+  (written by Claude, 2026-11-16, at Joshua's request).
