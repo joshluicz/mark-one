@@ -120,7 +120,7 @@ what's due.
 | Item | My recall task | Last check | Result | Next due |
 |---|---|---|---|---|
 | XOR from its truth table | Blank page: truth table → sum of products → gate diagram | 2026-11-17 | ✅ | 2026-11-20 |
-| Python (CS50P sets done so far) | Redo one finished problem set from the spec, no peeking at my old code | 2026-11-02 | ✅ | 2026-11-03 |
+| Python (CS50P sets done so far) | Redo one finished problem set from the spec, no peeking at my old code | 2026-11-17 | ✅ | 2026-11-20 |
 | Integration by parts | Integrate one example cold (from an 18.01 problem set) | 2026-11-02 | 🟡 | 2026-11-03 |
 
 ⬜ **Tool:** this log is the starting point — no new app, and every Claude session surfaces what's
